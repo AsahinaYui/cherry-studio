@@ -448,6 +448,7 @@ export async function buildClaudeCodeQueryRequestForAgentSession(
       provider,
       {
         lastAgentSessionId: resumeSessionId,
+        runtimeContextModelName: model.name,
         mcpServerSnapshots,
         linkedChannelSnapshot,
         knowledgeBaseIds: selectedKnowledgeBaseIds,

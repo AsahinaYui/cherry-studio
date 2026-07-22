@@ -25,6 +25,7 @@ import {
   descriptorToTool,
   listClaudeAgentToolDescriptors
 } from '@main/ai/tools/adapters/claudeCode/agentTools'
+import { buildRuntimeContextPrompt } from '@main/utils/prompt'
 import type { AgentSessionContextUsage } from '@shared/ai/agentSessionContextUsage'
 import type { AgentSessionSlashCommand } from '@shared/ai/agentSessionSlashCommands'
 import type { Tool } from '@shared/ai/tool'
@@ -60,7 +61,12 @@ import {
   registerMcpSessionCatalogSync
 } from './settingsBuilder'
 import { ClaudeCodeResultError, ClaudeCodeStreamAdapter, convertClaudeCodeUsage, v3UsageToStats } from './streamAdapter'
-import type { McpToolDisplayMetadata, SteerHolder, ToolApprovalEmitterHolder } from './types'
+import type {
+  ClaudeCodeRuntimeContextSnapshot,
+  McpToolDisplayMetadata,
+  SteerHolder,
+  ToolApprovalEmitterHolder
+} from './types'
 
 const logger = loggerService.withContext('ClaudeCodeRuntimeDriver')
 const HOST_MANAGED_SLASH_COMMANDS = new Set(['effort', 'fast'])
@@ -359,6 +365,7 @@ class ClaudeCodeRuntimeConnection implements AgentRuntimeConnection {
   private approvalEmitter?: ToolApprovalEmitterHolder
   private mcpToolMetadata?: Record<string, McpToolDisplayMetadata>
   private resumeToken?: string
+  private runtimeContext?: ClaudeCodeRuntimeContextSnapshot
   private toolPolicySnapshot?: ClaudeAgentToolPolicySnapshot
   private steerHolder?: SteerHolder
   private sessionTornDown = false
@@ -442,6 +449,7 @@ class ClaudeCodeRuntimeConnection implements AgentRuntimeConnection {
     // event queue, so it never varies per turn. (The prior per-turn rebind was the mirror of the
     // now-removed per-turn dispose; both gone, the emitter is plainly session-scoped.)
     this.bindApprovalEmitter()
+    this.runtimeContext = request.settings.runtimeContext
     this.toolPolicySnapshot = request.settings.toolPolicySnapshot
     this.steerHolder = request.settings.steerHolder
     registerMcpSessionCatalogSync(
@@ -481,7 +489,12 @@ class ClaudeCodeRuntimeConnection implements AgentRuntimeConnection {
 
     this.adapter?.beginTurn()
 
+    const runtimeContext = this.runtimeContext
+      ? await buildRuntimeContextPrompt(this.runtimeContext.modelName, this.runtimeContext.template)
+      : undefined
+
     const sdkMessage = await toSdkUserMessage(input.message, this.resumeToken, input.systemReminder, {
+      runtimeContext,
       supportsImages: resolveModelImageSupport(this.input.modelId)
     })
     this.lastSdkUserMessage = sdkMessage
@@ -1036,11 +1049,20 @@ async function toSdkUserMessage(
   message: AgentSessionMessageEntity,
   resumeToken?: string,
   systemReminder = false,
-  { supportsImages = true }: { supportsImages?: boolean } = {}
+  {
+    runtimeContext,
+    supportsImages = true
+  }: {
+    runtimeContext?: string
+    supportsImages?: boolean
+  } = {}
 ): Promise<SDKUserMessage> {
   let content = await materializeUserContent(message, supportsImages)
   if (systemReminder) {
     content = applySteerReminder(content)
+  }
+  if (runtimeContext) {
+    content = prependRuntimeContextReminder(content, runtimeContext)
   }
 
   return {
@@ -1049,6 +1071,23 @@ async function toSdkUserMessage(
     parent_tool_use_id: null,
     session_id: resumeToken ?? ''
   }
+}
+
+function prependRuntimeContextReminder(
+  content: SDKUserMessage['message']['content'],
+  runtimeContext: string
+): SDKUserMessage['message']['content'] {
+  const reminder = wrapRuntimeContextReminder(runtimeContext)
+  if (Array.isArray(content)) {
+    return [{ type: 'text', text: reminder }, ...content]
+  }
+  return content.trim() ? `${reminder}\n\n${content}` : reminder
+}
+
+function wrapRuntimeContextReminder(content: string): string {
+  // Escape literal delimiter tags so configured context cannot terminate or forge the wrapper.
+  const safe = content.replace(/<(\/?\s*system-reminder\b[^>]*)>/gi, '&lt;$1>')
+  return `<system-reminder>\n${safe}\n</system-reminder>`
 }
 
 /**
