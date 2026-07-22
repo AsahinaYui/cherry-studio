@@ -61,6 +61,7 @@ import { toAsarUnpackedPath } from '@main/utils/asar'
 import { getBinaryPath } from '@main/utils/binaryResolver'
 import { autoDiscoverGitBash } from '@main/utils/commandResolver'
 import { getPathStatus, isPathInside, type PathStatus } from '@main/utils/file'
+import { buildRuntimeContextPrompt } from '@main/utils/prompt'
 import { redactUrlToOrigin } from '@main/utils/redactUrl'
 import { rtkRewrite } from '@main/utils/rtk'
 import { getShellEnv } from '@main/utils/shellEnv'
@@ -1265,19 +1266,25 @@ export async function buildSystemPrompt(
     'Use it as the default base for file operations and shell commands; resolve unspecified or relative paths against it.'
   ].join('\n')
   const workspaceContextBlock = `\n\n${workspaceBlock}`
+  const runtimeContextBlock = agentConfig?.runtime_context_enabled
+    ? `\n\n${await buildRuntimeContextPrompt(
+        agent.modelName ?? agent.model ?? undefined,
+        agentConfig.runtime_context_prompt
+      )}`
+    : ''
 
   // Assistant mode
   if (isAssistant) {
     try {
       const context = buildAssistantContext()
       return instructions
-        ? `${instructions}\n\n${context}${workspaceContextBlock}${channelSecurityBlock}${citationsBlock}`
-        : `${context}${workspaceContextBlock}${channelSecurityBlock}${citationsBlock}`
+        ? `${instructions}\n\n${context}${workspaceContextBlock}${runtimeContextBlock}${channelSecurityBlock}${citationsBlock}`
+        : `${context}${workspaceContextBlock}${runtimeContextBlock}${channelSecurityBlock}${citationsBlock}`
     } catch (error) {
       // Don't silently degrade to generic behavior: a context read failure drops the entire
       // assistant context, so surface it before falling back to the base instructions.
       logger.error('buildAssistantContext failed; falling back to base instructions', error as Error)
-      return `${instructions}${workspaceContextBlock}${channelSecurityBlock}${citationsBlock}`
+      return `${instructions}${workspaceContextBlock}${runtimeContextBlock}${channelSecurityBlock}${citationsBlock}`
     }
   }
 
@@ -1292,7 +1299,7 @@ export async function buildSystemPrompt(
     agentDataPath
   )
   const userInstructions = instructions ? `\n\n${instructions}` : ''
-  return `${soulPrompt}${userInstructions}${workspaceContextBlock}${channelSecurityBlock}${citationsBlock}${artifactsBlock}${runtimeBlock}\n\n${langInstruction}`
+  return `${soulPrompt}${userInstructions}${workspaceContextBlock}${runtimeContextBlock}${channelSecurityBlock}${citationsBlock}${artifactsBlock}${runtimeBlock}\n\n${langInstruction}`
 }
 
 export function buildMcpServers(
