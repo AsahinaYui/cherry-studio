@@ -1,3 +1,7 @@
+import type { FC } from 'react'
+import { memo, useCallback, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import type { MessageMenuBarScope } from '@renderer/components/chat/messages/frame/messageMenuBarConfig'
 import {
   DEFAULT_MESSAGE_MENUBAR_SCOPE,
@@ -8,9 +12,6 @@ import type { Topic } from '@renderer/types/topic'
 import { getComposerTextFromParts } from '@renderer/utils/message/composerTokens'
 import { canEditAssistantMessageParts, hasTextParts, hasTranslationParts } from '@renderer/utils/message/partsHelpers'
 import { classNames } from '@renderer/utils/style'
-import type { FC } from 'react'
-import { memo, useCallback, useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { useMessageParts } from '../blocks/MessagePartsContext'
 import {

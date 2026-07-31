@@ -1,9 +1,10 @@
 import path from 'node:path'
 
 import type { ProviderOptions } from '@ai-sdk/provider-utils'
-import { ENDPOINT_TYPE, MODEL_CAPABILITY } from '@shared/data/types/model'
 import type { StopCondition, Tool, ToolSet } from 'ai'
 import { afterEach, describe, expect, it, vi } from 'vitest'
+
+import { ENDPOINT_TYPE, MODEL_CAPABILITY } from '@shared/data/types/model'
 
 import { makeAssistant, makeModel, makeProvider } from '../../../../__tests__/fixtures'
 import { registry } from '../../../../tools/adapters/aiSdk/registry'

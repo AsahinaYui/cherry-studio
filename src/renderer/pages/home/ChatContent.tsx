@@ -1,3 +1,7 @@
+import type { FC } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { MessageEditingProvider } from '@renderer/components/chat/editing/MessageEditingContext'
 import type { TopicMessageFlowLiveState } from '@renderer/components/chat/flow'
 import { ChatLayoutModeProvider } from '@renderer/components/chat/layout/ChatLayoutModeContext'
@@ -20,9 +24,6 @@ import { EVENT_NAMES, EventEmitter } from '@renderer/services/EventService'
 import type { Topic } from '@renderer/types/topic'
 import type { CherryUIMessage } from '@shared/data/types/message'
 import type { Provider } from '@shared/data/types/provider'
-import type { FC } from 'react'
-import { useEffect, useMemo, useRef } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import ChatComposerSlot from './ChatComposerSlot'
 import ChatMain from './ChatMain'

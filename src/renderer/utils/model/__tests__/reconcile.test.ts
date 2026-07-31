@@ -1,5 +1,6 @@
-import { type Model, MODEL_CAPABILITY, type ModelCapability, type RuntimeReasoning } from '@shared/data/types/model'
 import { describe, expect, it } from 'vitest'
+
+import { type Model, MODEL_CAPABILITY, type ModelCapability, type RuntimeReasoning } from '@shared/data/types/model'
 
 import {
   canModelUseAssistantWebSearch,

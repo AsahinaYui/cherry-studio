@@ -1,8 +1,10 @@
-import { isMac, isWin } from '@main/core/platform'
-import { sanitizeRemoteUrl } from '@main/utils/remoteUrlSafety'
 import { randomUUID } from 'crypto'
+
 import { app, BrowserView, BrowserWindow, nativeTheme } from 'electron'
 import TurndownService from 'turndown'
+
+import { isMac, isWin } from '@main/core/platform'
+import { sanitizeRemoteUrl } from '@main/utils/remoteUrlSafety'
 
 import { SESSION_KEY_DEFAULT, SESSION_KEY_PRIVATE, TAB_BAR_HEIGHT } from './constants'
 import { TAB_BAR_HTML } from './tabbarHtml'

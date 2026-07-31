@@ -9,8 +9,9 @@
  * that already pull from `agentParams/`.
  */
 
-import type { StringKeys } from '@cherrystudio/ai-core/provider'
 import type { ResolvedReasoningProfile } from '@data/services/ProviderRegistryService'
+
+import type { StringKeys } from '@cherrystudio/ai-core/provider'
 import type { EndpointType, Model } from '@shared/data/types/model'
 import type { Provider } from '@shared/data/types/provider'
 

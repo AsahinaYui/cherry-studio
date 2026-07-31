@@ -1,12 +1,13 @@
+import { Download, Loader2 } from 'lucide-react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { Button } from '@cherrystudio/ui'
 import { useModels } from '@renderer/hooks/useModel'
 import { ipcApi, useIpcOn } from '@renderer/ipc'
 import { toast } from '@renderer/services/toast'
 import { LOCAL_EMBEDDING_UNIQUE_MODEL_ID } from '@shared/data/presets/localEmbedding'
 import type { LocalModelStatus } from '@shared/data/presets/localModel'
-import { Download, Loader2 } from 'lucide-react'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 interface LocalEmbeddingDownloadButtonProps {
   /** Select the local embedding model in the parent form once it is downloaded. */
@@ -104,7 +105,7 @@ const LocalEmbeddingDownloadButton = ({ onSelected }: LocalEmbeddingDownloadButt
         variant="outline"
         size="sm"
         aria-label={t('common.cancel')}
-        className="h-8 shrink-0 gap-1.5 px-2.5 font-normal text-xs"
+        className="h-8 shrink-0 gap-1.5 px-2.5 text-xs font-normal"
         onClick={() => void cancel()}>
         <Loader2 className="size-3.5 animate-spin" />
         {percent}%
@@ -118,7 +119,7 @@ const LocalEmbeddingDownloadButton = ({ onSelected }: LocalEmbeddingDownloadButt
         type="button"
         variant="outline"
         size="sm"
-        className="h-8 shrink-0 gap-1.5 px-2.5 font-normal text-xs"
+        className="h-8 shrink-0 gap-1.5 px-2.5 text-xs font-normal"
         onClick={() => void select()}>
         {t('knowledge.rag.use_local_embedding')}
       </Button>
@@ -130,7 +131,7 @@ const LocalEmbeddingDownloadButton = ({ onSelected }: LocalEmbeddingDownloadButt
       type="button"
       variant="outline"
       size="sm"
-      className="h-8 shrink-0 gap-1.5 px-2.5 font-normal text-xs"
+      className="h-8 shrink-0 gap-1.5 px-2.5 text-xs font-normal"
       onClick={() => void download()}>
       <Download className="size-3.5" />
       {t('knowledge.rag.download_local_embedding')}

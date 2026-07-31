@@ -1,5 +1,6 @@
-import type { KnowledgeSelectOption } from '@renderer/pages/knowledge/types'
 import { useTranslation } from 'react-i18next'
+
+import type { KnowledgeSelectOption } from '@renderer/pages/knowledge/types'
 
 import { RagFieldLabel, RagSelectField } from './panelPrimitives'
 

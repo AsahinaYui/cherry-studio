@@ -1,3 +1,8 @@
+import { CheckCircle2, CircleAlert, Import, Loader2 } from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
+import { useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { Alert, Button, Dialog, DialogContent, Dropzone, DropzoneEmptyState, Scrollbar } from '@cherrystudio/ui'
 import { useSkillInstall } from '@renderer/hooks/useSkills'
 import { ipcApi } from '@renderer/ipc'
@@ -5,10 +10,6 @@ import { toast } from '@renderer/services/toast'
 import { AbsoluteFilePathSchema } from '@shared/types/file'
 import type { InstalledSkill } from '@shared/types/skill'
 import { createFilePathHandle } from '@shared/utils/file'
-import { CheckCircle2, CircleAlert, Import, Loader2 } from 'lucide-react'
-import { AnimatePresence, motion } from 'motion/react'
-import { useCallback, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 interface Props {
   open: boolean
@@ -244,10 +245,10 @@ export function ImportSkillDialog({ open, onOpenChange }: Props) {
         {/* Header */}
         <div>
           <div>
-            <h3 className="font-semibold text-foreground text-lg leading-none">
+            <h3 className="text-lg leading-none font-semibold text-foreground">
               {t('library.import_skill_dialog.title')}
             </h3>
-            <p className="mt-2 text-muted-foreground text-sm">{t('library.import_skill_dialog.subtitle')}</p>
+            <p className="mt-2 text-sm text-muted-foreground">{t('library.import_skill_dialog.subtitle')}</p>
           </div>
         </div>
 
@@ -274,11 +275,11 @@ export function ImportSkillDialog({ open, onOpenChange }: Props) {
                 'dataTransfer' in event && event.dataTransfer ? Array.from(event.dataTransfer.files) : files
               void handleDroppedEntries(droppedFiles)
             }}
-            className="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-border-subtle border-dashed bg-transparent p-8 text-center shadow-none transition-colors hover:border-border-strong hover:bg-accent disabled:pointer-events-none disabled:opacity-60">
+            className="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-border-subtle bg-transparent p-8 text-center shadow-none transition-colors hover:border-border-strong hover:bg-accent disabled:pointer-events-none disabled:opacity-60">
             <DropzoneEmptyState>
               <Import size={26} strokeWidth={1.2} className="mb-3 text-foreground-tertiary" />
-              <p className="mb-1 text-muted-foreground text-xs">{t('library.import_skill_dialog.local.drop_hint')}</p>
-              <p className="text-muted-foreground text-xs">{t('library.import_skill_dialog.local.formats')}</p>
+              <p className="mb-1 text-xs text-muted-foreground">{t('library.import_skill_dialog.local.drop_hint')}</p>
+              <p className="text-xs text-muted-foreground">{t('library.import_skill_dialog.local.formats')}</p>
             </DropzoneEmptyState>
           </Dropzone>
 

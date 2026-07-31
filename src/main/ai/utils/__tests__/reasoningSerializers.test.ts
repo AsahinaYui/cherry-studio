@@ -1,5 +1,6 @@
-import type { ReasoningWireProfile } from '@cherrystudio/provider-registry'
 import { describe, expect, it } from 'vitest'
+
+import type { ReasoningWireProfile } from '@cherrystudio/provider-registry'
 
 import { makeModel } from '../../__tests__/fixtures'
 import { encodeReasoningInvocation, resolveReasoningInvocation } from '../reasoningSerializers'

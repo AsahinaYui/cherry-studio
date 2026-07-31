@@ -1,9 +1,10 @@
 import { dataApiService } from '@data/DataApiService'
-import type { Topic } from '@renderer/types/topic'
 import { MockDataApiUtils } from '@test-mocks/renderer/DataApiService'
 import { MockUseDataApiUtils, mockUseInvalidateCache, mockUseWriteCache } from '@test-mocks/renderer/useDataApi'
 import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest'
+
+import type { Topic } from '@renderer/types/topic'
 
 import { getTopicMessages, useActiveTopic, useLatestTopic, useTopicMutations } from '../useTopic'
 

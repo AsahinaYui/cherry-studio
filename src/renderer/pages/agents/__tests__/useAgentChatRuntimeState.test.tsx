@@ -1,7 +1,8 @@
-import type { MessageListRuntime } from '@renderer/components/chat/messages/types'
-import type { CherryMessagePart, CherryUIMessage } from '@shared/data/types/message'
 import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+import type { MessageListRuntime } from '@renderer/components/chat/messages/types'
+import type { CherryMessagePart, CherryUIMessage } from '@shared/data/types/message'
 
 const mocks = vi.hoisted(() => ({
   refresh: vi.fn(),

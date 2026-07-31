@@ -1,5 +1,3 @@
-import { toast } from '@renderer/services/toast'
-import type { AgentSessionEntity } from '@shared/data/api/schemas/agentSessions'
 import { MockUseCacheUtils } from '@test-mocks/renderer/useCache'
 import {
   MockUseDataApiUtils,
@@ -10,6 +8,9 @@ import {
 } from '@test-mocks/renderer/useDataApi'
 import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+import { toast } from '@renderer/services/toast'
+import type { AgentSessionEntity } from '@shared/data/api/schemas/agentSessions'
 
 import {
   useActiveSession,

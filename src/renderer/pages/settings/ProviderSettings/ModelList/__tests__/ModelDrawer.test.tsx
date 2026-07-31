@@ -1,6 +1,7 @@
-import { ENDPOINT_TYPE, MODALITY, MODEL_CAPABILITY } from '@shared/data/types/model'
 import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+
+import { ENDPOINT_TYPE, MODALITY, MODEL_CAPABILITY } from '@shared/data/types/model'
 
 import AddModelDrawer from '../ModelDrawer/AddModelDrawer'
 import EditModelDrawer from '../ModelDrawer/EditModelDrawer'

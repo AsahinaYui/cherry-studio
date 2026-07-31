@@ -15,6 +15,15 @@
  */
 import { randomUUID } from 'node:crypto'
 import type { Stats } from 'node:fs'
+import * as path from 'path'
+
+import { ZipArchive } from 'archiver'
+import { Mutex } from 'async-mutex'
+import Database from 'better-sqlite3'
+import { app } from 'electron'
+import * as fs from 'fs-extra'
+import StreamZip from 'node-stream-zip'
+import type { CreateDirectoryOptions, FileStat } from 'webdav'
 
 import { application } from '@application'
 import { loggerService } from '@logger'
@@ -26,14 +35,6 @@ import { readRestoreJournal, type RestoreJournal, writeRestoreJournal } from '@m
 import { isPathInside, resolveAndValidatePath } from '@main/utils/legacyFile'
 import { IpcChannel } from '@shared/IpcChannel'
 import type { S3Config, WebDavConfig } from '@shared/types/backup'
-import { ZipArchive } from 'archiver'
-import { Mutex } from 'async-mutex'
-import Database from 'better-sqlite3'
-import { app } from 'electron'
-import * as fs from 'fs-extra'
-import StreamZip from 'node-stream-zip'
-import * as path from 'path'
-import type { CreateDirectoryOptions, FileStat } from 'webdav'
 
 import S3Storage from './S3Storage'
 import WebDav from './WebDav'

@@ -1,10 +1,11 @@
 import type * as UseCacheModule from '@data/hooks/useCache'
 import { useQuery } from '@data/hooks/useDataApi'
-import { toast } from '@renderer/services/toast'
 import { MockCacheUtils } from '@test-mocks/renderer/CacheService'
 import { MockUseDataApiUtils, mockUseInvalidateCache } from '@test-mocks/renderer/useDataApi'
 import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+import { toast } from '@renderer/services/toast'
 
 import { useAgent, useAgents, useUpdateAgent } from '../useAgent'
 

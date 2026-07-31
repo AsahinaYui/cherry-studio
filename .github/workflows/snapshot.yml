@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       branch:
-        description: "Branch to create snapshot from"
+        description: 'Branch to create snapshot from'
         required: true
-        default: "main"
+        default: 'main'
 
 permissions:
   contents: write
@@ -26,8 +26,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version-file: ".node-version"
-          registry-url: "https://registry.npmjs.org"
+          node-version-file: '.node-version'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v5

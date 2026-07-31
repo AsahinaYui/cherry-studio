@@ -1,3 +1,7 @@
+import { CircleChevronDown } from 'lucide-react'
+import { type FC, type Ref, useCallback, useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { Avatar, AvatarFallback, AvatarImage, EmojiAvatar } from '@cherrystudio/ui'
 import { useIcon } from '@cherrystudio/ui/icons'
 import { useTheme } from '@renderer/hooks/useTheme'
@@ -6,9 +10,6 @@ import { scrollIntoView } from '@renderer/utils/dom'
 import { getTextFromParts } from '@renderer/utils/message/partsHelpers'
 import { getModelLogoRef } from '@renderer/utils/model'
 import { firstLetter, isEmoji, removeLeadingEmoji } from '@renderer/utils/naming'
-import { CircleChevronDown } from 'lucide-react'
-import { type FC, type Ref, useCallback, useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { usePartsMap } from '../blocks/MessagePartsContext'
 import { useMessageListActions, useMessageListMeta, useMessageRenderConfig } from '../MessageListProvider'

@@ -1,5 +1,6 @@
-import { application } from '@application'
 import { knowledgeItemService } from '@data/services/KnowledgeItemService'
+
+import { application } from '@application'
 import type { JobSettledEvent } from '@main/core/job/types'
 import type { LoggerService } from '@main/core/logger/LoggerService'
 import { ErrorCode, isDataApiError } from '@shared/data/api/errors'

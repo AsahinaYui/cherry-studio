@@ -1,5 +1,6 @@
-import { TopicType } from '@renderer/types/topic'
 import { describe, expect, it } from 'vitest'
+
+import { TopicType } from '@renderer/types/topic'
 
 import { getMessageMenuBarConfig } from '../messageMenuBarConfig'
 

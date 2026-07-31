@@ -1,8 +1,9 @@
+import { nanoid } from 'nanoid'
+
 import { application } from '@application'
 import { loggerService } from '@logger'
 import { WindowType } from '@main/core/window/types'
 import type { McpServer } from '@shared/data/types/mcpServer'
-import { nanoid } from 'nanoid'
 
 const logger = loggerService.withContext('ProtocolService:mcpInstall')
 

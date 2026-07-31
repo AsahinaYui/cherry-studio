@@ -1,10 +1,11 @@
+import { net } from 'electron'
+import * as z from 'zod'
+
 import { regionService } from '@main/services/RegionService'
 import { defaultAppHeaders } from '@main/utils/http'
 import type { WebSearchCapability } from '@shared/data/preference/preferenceTypes'
 import type { WebSearchExecutionConfig, WebSearchResponse } from '@shared/data/types/webSearch'
 import { withoutTrailingSlash } from '@shared/utils/api'
-import { net } from 'electron'
-import * as z from 'zod'
 
 import { resolveProviderApiHost } from '../../utils/provider'
 import { BaseWebSearchProvider } from '../base/BaseWebSearchProvider'

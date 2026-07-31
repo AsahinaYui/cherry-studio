@@ -1,5 +1,6 @@
-import { application } from '@application'
 import { knowledgeItemService } from '@data/services/KnowledgeItemService'
+
+import { application } from '@application'
 import type { KnowledgeBase, KnowledgeItem } from '@shared/data/types/knowledge'
 
 import { cancelJobOrThrow } from '../../tasks/utils/cancel'

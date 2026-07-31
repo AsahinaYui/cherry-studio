@@ -1,5 +1,9 @@
-import { Checkbox, ConfirmDialog } from '@cherrystudio/ui'
 import { usePreference } from '@data/hooks/usePreference'
+import type { ReactNode } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { Checkbox, ConfirmDialog } from '@cherrystudio/ui'
 import CitationsPanel from '@renderer/components/chat/citations/CitationsPanel'
 import {
   type ResourcePaneConfig,
@@ -36,9 +40,6 @@ import { cn } from '@renderer/utils/style'
 import type { AgentSessionEntity } from '@shared/data/api/schemas/agentSessions'
 import type { CherryMessagePart, CherryUIMessage } from '@shared/data/types/message'
 import type { Model } from '@shared/data/types/model'
-import type { ReactNode } from 'react'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import AgentChatMain from './AgentChatMain'
 import AgentComposerSlot from './AgentComposerSlot'
@@ -214,9 +215,9 @@ const AgentChat = ({
   const composerAgentId = isActiveAgentLoading ? (sessionAgentId ?? undefined) : sendableAgentId
   const shouldFetchSessionHistoryOnMount = Boolean(
     sessionSnapshot &&
-      (activeSessionSource === 'query' ||
-        activeSessionSource === 'pending' ||
-        (!!activeSession && activeSessionSource === 'none'))
+    (activeSessionSource === 'query' ||
+      activeSessionSource === 'pending' ||
+      (!!activeSession && activeSessionSource === 'none'))
   )
   const sessionMessagesEnabled = Boolean(sessionSnapshot && activeSession && activeSession.id === sessionSnapshot.id)
   const runtime = useAgentChatRuntimeState({
@@ -234,11 +235,11 @@ const AgentChat = ({
   } = runtime
   const isEmptyConversation = Boolean(
     sessionSnapshot &&
-      sessionMessagesEnabled &&
-      !runtime.isLoading &&
-      !runtime.isPending &&
-      !runtime.hasOlder &&
-      runtime.uiMessages.length === 0
+    sessionMessagesEnabled &&
+    !runtime.isLoading &&
+    !runtime.isPending &&
+    !runtime.hasOlder &&
+    runtime.uiMessages.length === 0
   )
   const canChangeWorkspace = Boolean(onSessionWorkspaceChange && isEmptyConversation)
   const runAfterFileNavigation = useCallback(
@@ -496,7 +497,7 @@ const AgentChat = ({
             />
             <label
               htmlFor="skip-model-switch-confirmation"
-              className="cursor-pointer text-foreground text-sm leading-none">
+              className="cursor-pointer text-sm leading-none text-foreground">
               {t('agent.session.model_switch_confirm.skip_for_app_run')}
             </label>
           </div>

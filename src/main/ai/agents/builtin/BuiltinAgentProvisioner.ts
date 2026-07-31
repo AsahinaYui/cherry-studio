@@ -1,3 +1,6 @@
+import fs from 'fs'
+import path from 'path'
+
 /**
  * BuiltinAgentProvisioner
  *
@@ -11,8 +14,6 @@
 import { application } from '@application'
 import { loggerService } from '@logger'
 import { getAppLanguage } from '@main/i18n'
-import fs from 'fs'
-import path from 'path'
 
 const logger = loggerService.withContext('BuiltinAgentProvisioner')
 

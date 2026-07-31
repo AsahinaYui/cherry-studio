@@ -7,6 +7,9 @@
  * with `session.agentId`.
  */
 
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import {
   useInfiniteFlatItems,
   useInfiniteQuery,
@@ -29,8 +32,6 @@ import type {
   UpdateAgentSessionDto
 } from '@shared/data/api/schemas/agentSessions'
 import type { ConcreteApiPaths } from '@shared/data/api/types'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 const DEFAULT_SESSION_PAGE_SIZE = 20
 export type AgentSessionSource = 'query' | 'pending' | 'none'

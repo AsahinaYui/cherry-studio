@@ -5,7 +5,7 @@ on:
     types: [opened]
   schedule:
     # Run every day at 8:30 Beijing Time (00:30 UTC)
-    - cron: "30 0 * * *"
+    - cron: '30 0 * * *'
   workflow_dispatch:
 
 jobs:
@@ -56,7 +56,7 @@ jobs:
         if: steps.check_time.outputs.should_delay == 'false'
         uses: actions/setup-node@v6
         with:
-          node-version-file: ".node-version"
+          node-version-file: '.node-version'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v5
@@ -83,9 +83,9 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          allowed_non_write_users: "*"
+          allowed_non_write_users: '*'
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          claude_args: "--model ${{ vars.ANTHROPIC_MODEL }} --allowed-tools Bash(gh issue:*),Bash(pnpm tsx scripts/feishu-notify.ts*)"
+          claude_args: '--model ${{ vars.ANTHROPIC_MODEL }} --allowed-tools Bash(gh issue:*),Bash(pnpm tsx scripts/feishu-notify.ts*)'
           prompt: |
             你是一个GitHub Issue自动化处理助手。请完成以下任务：
 
@@ -148,7 +148,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version-file: ".node-version"
+          node-version-file: '.node-version'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v5
@@ -173,9 +173,9 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          allowed_non_write_users: "*"
+          allowed_non_write_users: '*'
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          claude_args: "--model ${{ vars.ANTHROPIC_MODEL }} --allowed-tools Bash(gh issue:*),Bash(gh api:*),Bash(pnpm tsx scripts/feishu-notify.ts*)"
+          claude_args: '--model ${{ vars.ANTHROPIC_MODEL }} --allowed-tools Bash(gh issue:*),Bash(gh api:*),Bash(pnpm tsx scripts/feishu-notify.ts*)'
           prompt: |
             你是一个GitHub Issue自动化处理助手。请完成以下任务：
 

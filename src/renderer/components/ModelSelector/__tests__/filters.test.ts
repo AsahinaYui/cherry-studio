@@ -1,6 +1,7 @@
-import { MODALITY, type Model, MODEL_CAPABILITY } from '@shared/data/types/model'
 import { act, renderHook } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
+
+import { MODALITY, type Model, MODEL_CAPABILITY } from '@shared/data/types/model'
 
 import { useModelTagFilter } from '../filters'
 

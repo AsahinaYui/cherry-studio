@@ -1,6 +1,7 @@
+import { useCallback, useMemo, useState } from 'react'
+
 import { MODEL_DISPLAY_TAGS, type ModelDisplayTag, modelMatchesDisplayTag } from '@renderer/components/tags/Model'
 import type { Model } from '@shared/data/types/model'
-import { useCallback, useMemo, useState } from 'react'
 
 export const MODEL_SELECTOR_TAGS = MODEL_DISPLAY_TAGS
 

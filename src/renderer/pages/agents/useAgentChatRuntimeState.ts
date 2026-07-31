@@ -1,3 +1,6 @@
+import { isToolUIPart } from 'ai'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+
 import {
   isAskUserQuestionToolName,
   parseAskUserQuestionToolInput
@@ -25,8 +28,6 @@ import { buildAgentSessionTopicId } from '@renderer/utils/agentSession'
 import { mergeMessagesById } from '@renderer/utils/message/mergeMessagesById'
 import type { AiStreamOpenRequest, AiToolApprovalRespondResponse } from '@shared/ai/transport'
 import type { CherryMessagePart, CherryUIMessage } from '@shared/data/types/message'
-import { isToolUIPart } from 'ai'
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 type AskUserQuestionApprovalPart = CherryMessagePart & {
   type?: string

@@ -1,6 +1,7 @@
-import { MODALITY, MODEL_CAPABILITY } from '@shared/data/types/model'
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
+
+import { MODALITY, MODEL_CAPABILITY } from '@shared/data/types/model'
 
 import ModelTagsWithLabel, { type ModelTagsWithLabelModel } from '../ModelTagsWithLabel'
 

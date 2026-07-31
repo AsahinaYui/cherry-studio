@@ -18,79 +18,79 @@ protocols:
     schemes:
       - cherrystudio
 files:
-  - "**/*"
-  - "!**/{.vscode,.yarn,.yarn-lock,.github,.cursorrules,.prettierrc}"
-  - "!electron.vite.config.{js,ts,mjs,cjs}}"
-  - "!.*"
-  - "!components.json"
-  - "!**/{.eslintignore,.eslintrc.js,.eslintrc.json,.eslintcache,root.eslint.config.js,eslint.config.js,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,eslint.config.mjs,dev-app-update.yml,CHANGELOG.md,README.md,biome.jsonc}"
-  - "!**/{.env,.env.*,.npmrc,pnpm-lock.yaml}"
-  - "!**/{tsconfig.json,tsconfig.tsbuildinfo,tsconfig.node.json,tsconfig.web.json}"
-  - "!**/{.editorconfig,.jekyll-metadata}"
-  - "!src"
-  - "!config"
-  - "!patches"
-  - "!**/node_modules/**/*.cpp"
-  - "!**/node_modules/node-addon-api/**"
-  - "!**/node_modules/prebuild-install/**"
-  - "!scripts"
-  - "!local"
-  - "!docs"
-  - "!packages"
-  - "!.swc"
-  - "!.bin"
-  - "!._*"
-  - "!*.log"
-  - "!stats.html"
-  - "!*.md"
-  - "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}"
-  - "!**/*.{map,ts,tsx,jsx,less,scss,sass,css.d.ts,d.cts,d.mts,md,markdown,yaml,yml}"
-  - "!**/{test,tests,__tests__,powered-test,coverage}/**"
-  - "!**/{example,examples}/**"
-  - "!**/*.{spec,test}.{js,jsx,ts,tsx}"
-  - "!**/*.min.*.map"
-  - "!**/*.d.ts"
-  - "!**/dist/es6/**"
-  - "!**/dist/demo/**"
-  - "!**/amd/**"
-  - "!**/{.DS_Store,Thumbs.db,thumbs.db,__pycache__}"
-  - "!**/{LICENSE,license,LICENSE.*,*.LICENSE.txt,NOTICE.txt,README.md,readme.md,CHANGELOG.md}"
-  - "!node_modules/rollup-plugin-visualizer"
-  - "!node_modules/js-tiktoken"
-  - "!node_modules/@tavily/core/node_modules/js-tiktoken"
-  - "!node_modules/pdf-parse/lib/pdf.js/{v1.9.426,v1.10.88,v2.0.550}"
-  - "!node_modules/mammoth/{mammoth.browser.js,mammoth.browser.min.js}"
-  - "!node_modules/selection-hook/prebuilds/**/*" # we rebuild .node, don't use prebuilds
-  - "!node_modules/selection-hook/node_modules" # we don't need what in the node_modules dir
-  - "!node_modules/selection-hook/src" # we don't need source files
-  - "!node_modules/tesseract.js-core/{tesseract-core.js,tesseract-core.wasm,tesseract-core.wasm.js}" # we don't need source files
-  - "!node_modules/tesseract.js-core/{tesseract-core-lstm.js,tesseract-core-lstm.wasm,tesseract-core-lstm.wasm.js}" # we don't need source files
-  - "!node_modules/tesseract.js-core/{tesseract-core-simd-lstm.js,tesseract-core-simd-lstm.wasm,tesseract-core-simd-lstm.wasm.js}" # we don't need source files
-  - "!node_modules/onnxruntime-web/**" # transformers.js's browser/WASM backend; local inference always runs onnxruntime-node instead
-  - "!node_modules/@huggingface/transformers/node_modules/onnxruntime-web/**" # same package, nested copy
-  - "!node_modules/onnxruntime-node/bin/**" # native binary is downloaded on first use (Toolchain/onnxruntime), never bundled — see OnnxRuntimeBinaryService
-  - "!**/*.{h,iobj,ipdb,tlog,recipe,vcxproj,vcxproj.filters,Makefile,*.Makefile}" # filter .node build files
-  - "resources/**/*" # include all files in resources, and unpack them from asar for runtime access
-  - "!resources/devtools/**" # dev-only extensions are loaded from source in development
+  - '**/*'
+  - '!**/{.vscode,.yarn,.yarn-lock,.github,.cursorrules,.prettierrc}'
+  - '!electron.vite.config.{js,ts,mjs,cjs}}'
+  - '!.*'
+  - '!components.json'
+  - '!**/{.eslintignore,.eslintrc.js,.eslintrc.json,.eslintcache,root.eslint.config.js,eslint.config.js,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,eslint.config.mjs,dev-app-update.yml,CHANGELOG.md,README.md,.oxfmtrc.json}'
+  - '!**/{.env,.env.*,.npmrc,pnpm-lock.yaml}'
+  - '!**/{tsconfig.json,tsconfig.tsbuildinfo,tsconfig.node.json,tsconfig.web.json}'
+  - '!**/{.editorconfig,.jekyll-metadata}'
+  - '!src'
+  - '!config'
+  - '!patches'
+  - '!**/node_modules/**/*.cpp'
+  - '!**/node_modules/node-addon-api/**'
+  - '!**/node_modules/prebuild-install/**'
+  - '!scripts'
+  - '!local'
+  - '!docs'
+  - '!packages'
+  - '!.swc'
+  - '!.bin'
+  - '!._*'
+  - '!*.log'
+  - '!stats.html'
+  - '!*.md'
+  - '!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}'
+  - '!**/*.{map,ts,tsx,jsx,less,scss,sass,css.d.ts,d.cts,d.mts,md,markdown,yaml,yml}'
+  - '!**/{test,tests,__tests__,powered-test,coverage}/**'
+  - '!**/{example,examples}/**'
+  - '!**/*.{spec,test}.{js,jsx,ts,tsx}'
+  - '!**/*.min.*.map'
+  - '!**/*.d.ts'
+  - '!**/dist/es6/**'
+  - '!**/dist/demo/**'
+  - '!**/amd/**'
+  - '!**/{.DS_Store,Thumbs.db,thumbs.db,__pycache__}'
+  - '!**/{LICENSE,license,LICENSE.*,*.LICENSE.txt,NOTICE.txt,README.md,readme.md,CHANGELOG.md}'
+  - '!node_modules/rollup-plugin-visualizer'
+  - '!node_modules/js-tiktoken'
+  - '!node_modules/@tavily/core/node_modules/js-tiktoken'
+  - '!node_modules/pdf-parse/lib/pdf.js/{v1.9.426,v1.10.88,v2.0.550}'
+  - '!node_modules/mammoth/{mammoth.browser.js,mammoth.browser.min.js}'
+  - '!node_modules/selection-hook/prebuilds/**/*' # we rebuild .node, don't use prebuilds
+  - '!node_modules/selection-hook/node_modules' # we don't need what in the node_modules dir
+  - '!node_modules/selection-hook/src' # we don't need source files
+  - '!node_modules/tesseract.js-core/{tesseract-core.js,tesseract-core.wasm,tesseract-core.wasm.js}' # we don't need source files
+  - '!node_modules/tesseract.js-core/{tesseract-core-lstm.js,tesseract-core-lstm.wasm,tesseract-core-lstm.wasm.js}' # we don't need source files
+  - '!node_modules/tesseract.js-core/{tesseract-core-simd-lstm.js,tesseract-core-simd-lstm.wasm,tesseract-core-simd-lstm.wasm.js}' # we don't need source files
+  - '!node_modules/onnxruntime-web/**' # transformers.js's browser/WASM backend; local inference always runs onnxruntime-node instead
+  - '!node_modules/@huggingface/transformers/node_modules/onnxruntime-web/**' # same package, nested copy
+  - '!node_modules/onnxruntime-node/bin/**' # native binary is downloaded on first use (Toolchain/onnxruntime), never bundled — see OnnxRuntimeBinaryService
+  - '!**/*.{h,iobj,ipdb,tlog,recipe,vcxproj,vcxproj.filters,Makefile,*.Makefile}' # filter .node build files
+  - 'resources/**/*' # include all files in resources, and unpack them from asar for runtime access
+  - '!resources/devtools/**' # dev-only extensions are loaded from source in development
 asarUnpack:
   - resources/**
-  - "!resources/devtools/**"
-  - "**/*.{metal,exp,lib}"
-  - "node_modules/@img/sharp-*/**"
-  - "node_modules/@anthropic-ai/claude-agent-sdk-*/**" # native CLI binary must live on disk to be spawned
-  - "node_modules/@aiany/sqlite-vec-*/**" # sqlite-vec extension (.dylib/.so/.dll) is dlopen'd at runtime — must live on disk
-  - "node_modules/@node-rs/xxhash-*/**" # native N-API binary must be unpacked for runtime loading
+  - '!resources/devtools/**'
+  - '**/*.{metal,exp,lib}'
+  - 'node_modules/@img/sharp-*/**'
+  - 'node_modules/@anthropic-ai/claude-agent-sdk-*/**' # native CLI binary must live on disk to be spawned
+  - 'node_modules/@aiany/sqlite-vec-*/**' # sqlite-vec extension (.dylib/.so/.dll) is dlopen'd at runtime — must live on disk
+  - 'node_modules/@node-rs/xxhash-*/**' # native N-API binary must be unpacked for runtime loading
 extraResources:
-  - from: "migrations/sqlite-drizzle"
-    to: "migrations/sqlite-drizzle"
-  - from: "packages/provider-registry/data"
-    to: "provider-registry"
+  - from: 'migrations/sqlite-drizzle'
+    to: 'migrations/sqlite-drizzle'
+  - from: 'packages/provider-registry/data'
+    to: 'provider-registry'
 win:
   executableName: Cherry Studio
   artifactName: ${productName}-${version}-${arch}-setup.${ext}
   extraResources:
-    - from: "node_modules/@aiany/sqlite-vec-windows-${arch}/vec0.dll"
-      to: "app.asar.unpacked/node_modules/@aiany/sqlite-vec-windows-${arch}/vec0.dll"
+    - from: 'node_modules/@aiany/sqlite-vec-windows-${arch}/vec0.dll'
+      to: 'app.asar.unpacked/node_modules/@aiany/sqlite-vec-windows-${arch}/vec0.dll'
   target:
     - target: nsis
     - target: portable
@@ -142,7 +142,7 @@ linux:
 rpm:
   # Workaround for electron build issue on rpm package:
   # https://github.com/electron/forge/issues/3594
-  fpm: ["--rpm-rpmbuild-define=_build_id_links none"]
+  fpm: ['--rpm-rpmbuild-define=_build_id_links none']
 publish:
   provider: generic
   url: https://releases.cherry-ai.com

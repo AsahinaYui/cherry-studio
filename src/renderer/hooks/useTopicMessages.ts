@@ -13,6 +13,9 @@
  * lookup that can lag behind `useChat.state.messages` during streaming.
  */
 
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import type { SWRInfiniteKeyedMutator } from 'swr/infinite'
+
 import { useInfiniteFlatItems, useInfiniteQuery } from '@renderer/data/hooks/useDataApi'
 import { sharedMessageToUIMessage } from '@renderer/utils/message/messageProjection'
 import type {
@@ -21,8 +24,6 @@ import type {
   CherryUIMessage,
   Message as SharedMessage
 } from '@shared/data/types/message'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import type { SWRInfiniteKeyedMutator } from 'swr/infinite'
 
 const PAGE_SIZE = 50
 

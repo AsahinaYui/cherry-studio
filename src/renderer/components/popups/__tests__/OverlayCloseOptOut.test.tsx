@@ -1,9 +1,10 @@
-import { PopupHost } from '@renderer/components/PopupHost'
-import { POPUP_EXIT_MS, popupService } from '@renderer/services/popup'
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import type { ComponentProps, PropsWithChildren, ReactNode } from 'react'
 import type * as ReactModule from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+import { PopupHost } from '@renderer/components/PopupHost'
+import { POPUP_EXIT_MS, popupService } from '@renderer/services/popup'
 
 const mocks = vi.hoisted(() => ({
   backup: vi.fn()

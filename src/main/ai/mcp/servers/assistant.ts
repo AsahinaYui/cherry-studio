@@ -2,16 +2,17 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 
-import { application } from '@application'
 import { mcpServerService } from '@data/services/McpServerService'
 import { providerService } from '@data/services/ProviderService'
-import { loggerService } from '@logger'
-import { redactUrlToOrigin } from '@main/utils/redactUrl'
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import type { Tool } from '@modelcontextprotocol/sdk/types.js'
 import { CallToolRequestSchema, ErrorCode, ListToolsRequestSchema, McpError } from '@modelcontextprotocol/sdk/types.js'
-import { parseUniqueModelId, type UniqueModelId } from '@shared/data/types/model'
 import { app } from 'electron'
+
+import { application } from '@application'
+import { loggerService } from '@logger'
+import { redactUrlToOrigin } from '@main/utils/redactUrl'
+import { parseUniqueModelId, type UniqueModelId } from '@shared/data/types/model'
 
 const logger = loggerService.withContext('McpServer:Assistant')
 

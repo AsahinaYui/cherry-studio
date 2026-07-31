@@ -2,11 +2,12 @@ import { agentTable } from '@data/db/schemas/agent'
 import { agentSessionTable } from '@data/db/schemas/agentSession'
 import { agentService } from '@data/services/AgentService'
 import { agentSessionService } from '@data/services/AgentSessionService'
-import type { AgentConfiguration } from '@shared/data/api/schemas/agents'
-import { AGENT_WORKSPACE_TYPE } from '@shared/data/api/schemas/agentWorkspaces'
 import { count } from 'drizzle-orm'
 import { app } from 'electron'
 import { v4 as uuidv4 } from 'uuid'
+
+import type { AgentConfiguration } from '@shared/data/api/schemas/agents'
+import { AGENT_WORKSPACE_TYPE } from '@shared/data/api/schemas/agentWorkspaces'
 
 import type { DbOrTx, DbType, ISeeder } from '../../types'
 

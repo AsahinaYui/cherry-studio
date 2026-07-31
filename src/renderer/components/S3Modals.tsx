@@ -1,3 +1,7 @@
+import dayjs from 'dayjs'
+import { useCallback, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import {
   Button,
   Combobox,
@@ -15,9 +19,6 @@ import { backupToS3 } from '@renderer/services/BackupService'
 import { popup } from '@renderer/services/popup'
 import { toast } from '@renderer/services/toast'
 import { formatFileSize } from '@renderer/utils/file'
-import dayjs from 'dayjs'
-import { useCallback, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 interface BackupFile {
   fileName: string
@@ -263,7 +264,7 @@ export function S3RestoreModal({
             filterOption={(option, search) => option.label.toLowerCase().includes(search.toLowerCase())}
           />
           {loadingFiles && (
-            <div className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               <Spinner text={t('common.loading')} />
             </div>
           )}

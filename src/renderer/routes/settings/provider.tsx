@@ -1,6 +1,7 @@
-import { ProviderSettingsPage } from '@renderer/pages/settings/ProviderSettings'
 import { createFileRoute } from '@tanstack/react-router'
 import * as z from 'zod'
+
+import { ProviderSettingsPage } from '@renderer/pages/settings/ProviderSettings'
 
 const providerSettingsSearchSchema = z.object({
   addProviderData: z.string().optional(),

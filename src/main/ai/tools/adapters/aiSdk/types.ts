@@ -1,6 +1,7 @@
+import type { Tool } from 'ai'
+
 import type { Assistant } from '@shared/data/types/assistant'
 import type { ImageGenerationSupport, UniqueModelId } from '@shared/data/types/model'
-import type { Tool } from 'ai'
 
 /**
  * Read-only context for `ToolEntry.applies`. Lives here so the tool

@@ -1,4 +1,3 @@
-import { application } from '@application'
 import { knowledgeBaseTable } from '@data/db/schemas/knowledge'
 import type { InsertUserModelRow } from '@data/db/schemas/userModel'
 import { userModelTable } from '@data/db/schemas/userModel'
@@ -6,6 +5,9 @@ import type { InsertUserProviderRow } from '@data/db/schemas/userProvider'
 import { userProviderTable } from '@data/db/schemas/userProvider'
 import { providerService } from '@data/services/ProviderService'
 import { insertManyWithOrderKey } from '@data/services/utils/orderKey'
+import { eq } from 'drizzle-orm'
+
+import { application } from '@application'
 import { loggerService } from '@logger'
 import {
   LOCAL_EMBEDDING_MODEL_GROUP,
@@ -16,7 +18,6 @@ import {
   LOCAL_EMBEDDING_UNIQUE_MODEL_ID
 } from '@shared/data/presets/localEmbedding'
 import { MODEL_CAPABILITY, type ModelCapability } from '@shared/data/types/model'
-import { eq } from 'drizzle-orm'
 
 /**
  * The optional local embedding model is registered into `user_provider` /

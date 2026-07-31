@@ -1,6 +1,6 @@
 import type * as CryptoModule from 'node:crypto'
-
 import type * as PathModule from 'path'
+
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 // Mock path module to normalize all paths to POSIX format for cross-platform consistency
@@ -283,10 +283,11 @@ vi.mock('node-stream-zip', () => ({
   default: { async: MockStreamZipAsync }
 }))
 
+import * as path from 'path'
+
 // Import after mocks
 import { ZipArchive } from 'archiver'
 import * as fs from 'fs-extra'
-import * as path from 'path'
 
 import BackupManager from '../LegacyBackupManager'
 

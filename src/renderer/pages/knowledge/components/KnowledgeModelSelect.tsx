@@ -1,10 +1,11 @@
+import { ChevronDown, X } from 'lucide-react'
+import { useMemo } from 'react'
+
 import { Button } from '@cherrystudio/ui'
 import { cn } from '@cherrystudio/ui/lib/utils'
 import { ModelSelector } from '@renderer/components/ModelSelector'
 import { useModels } from '@renderer/hooks/useModel'
 import { isUniqueModelId, type Model, type UniqueModelId } from '@shared/data/types/model'
-import { ChevronDown, X } from 'lucide-react'
-import { useMemo } from 'react'
 
 export { isEmbeddingModel, isRerankModel } from '@shared/utils/model'
 
@@ -68,7 +69,7 @@ export const KnowledgeModelSelect = ({
               // base class ships `shrink-0`. Both overrides are needed: `shrink` to
               // allow shrinking at all, `min-w-0` to shrink past the label — otherwise
               // a long model name pushes the clear button outside the container.
-              'h-8 w-full min-w-0 shrink justify-between gap-2 rounded-md px-3 font-normal text-sm shadow-none',
+              'h-8 w-full min-w-0 shrink justify-between gap-2 rounded-md px-3 text-sm font-normal shadow-none',
               hasValue ? 'text-foreground' : 'text-muted-foreground',
               invalid && 'border-destructive'
             )}>

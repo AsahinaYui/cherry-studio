@@ -4,6 +4,9 @@
  * non-reactive `nutstoreSyncState` below until the native v2 service replaces it.
  */
 import { preferenceService } from '@data/PreferenceService'
+import dayjs from 'dayjs'
+import { type CreateDirectoryOptions } from 'webdav'
+
 import { loggerService } from '@logger'
 import i18n from '@renderer/i18n/resolver'
 import { ipcApi } from '@renderer/ipc'
@@ -11,8 +14,6 @@ import { popup } from '@renderer/services/popup'
 import { toast } from '@renderer/services/toast'
 import type { WebDavConfig } from '@shared/types/backup'
 import { NUTSTORE_HOST } from '@shared/utils/nutstore'
-import dayjs from 'dayjs'
-import { type CreateDirectoryOptions } from 'webdav'
 
 import type { RemoteSyncState } from './BackupService'
 

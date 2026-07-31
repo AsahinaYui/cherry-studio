@@ -1,3 +1,5 @@
+import { useCallback, useEffect, useMemo, useRef } from 'react'
+
 import { useSharedCacheSelector } from '@renderer/data/hooks/useCache'
 import { useMcpServers } from '@renderer/hooks/useMcpServer'
 import { ipcApi } from '@renderer/ipc'
@@ -13,7 +15,6 @@ import { resolveMcpSourceToolAccess } from '@shared/ai/tools/mcpSourcePolicy'
 import type { AgentConfiguration, AgentPermissionMode } from '@shared/data/api/schemas/agents'
 import type { AgentType } from '@shared/data/types/agent'
 import type { McpServer } from '@shared/data/types/mcpServer'
-import { useCallback, useEffect, useMemo, useRef } from 'react'
 
 type McpToolsCacheKey = `mcp.tools.${string}`
 

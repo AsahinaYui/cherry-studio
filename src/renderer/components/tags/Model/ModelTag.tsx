@@ -1,3 +1,5 @@
+import type { ComponentType } from 'react'
+
 import {
   MODALITY,
   type Modality,
@@ -7,7 +9,6 @@ import {
   type ModelTag
 } from '@shared/data/types/model'
 import { isFreeModel } from '@shared/utils/model'
-import type { ComponentType } from 'react'
 
 import type { CustomTagProps } from '../CustomTag'
 import { AudioTag } from './AudioTag'

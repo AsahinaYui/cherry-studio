@@ -1,10 +1,11 @@
+import { ChevronLeft } from 'lucide-react'
+import { useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { Button, ConfirmDialog } from '@cherrystudio/ui'
 import { toast } from '@renderer/services/toast'
 import { formatErrorMessageWithPrefix } from '@renderer/utils/error'
 import type { KnowledgeItem, KnowledgeItemOf, KnowledgeItemType } from '@shared/data/types/knowledge'
-import { ChevronLeft } from 'lucide-react'
-import { useCallback, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { KNOWLEDGE_DATA_SOURCE_TYPES } from '../../components/addKnowledgeItemDialog/constants'
 import KnowledgePanelShell from '../../components/KnowledgePanelShell'
@@ -49,10 +50,10 @@ const DataSourceEmptyState = ({ onAddSource }: { onAddSource: (source: Knowledge
   return (
     <div className="flex min-h-0 flex-1 items-center justify-center px-6 py-12 text-center">
       <div className="flex max-w-4xl flex-col items-center">
-        <h3 className="font-semibold text-foreground text-lg leading-7">
+        <h3 className="text-lg leading-7 font-semibold text-foreground">
           {t('knowledge.data_source.empty_description')}
         </h3>
-        <p className="mt-2 text-foreground-tertiary text-sm leading-5">{t('knowledge.data_source.empty.title')}</p>
+        <p className="mt-2 text-sm leading-5 text-foreground-tertiary">{t('knowledge.data_source.empty.title')}</p>
         <div className="mt-7 flex flex-wrap justify-center gap-2.5">
           {KNOWLEDGE_DATA_SOURCE_TYPES.map((source) => {
             const Icon = dataSourceTypeDisplayConfig[source.value].icon.icon
@@ -203,7 +204,7 @@ const DataSourcePanel = ({
     <KnowledgePanelShell
       headerClassName="shrink-0 px-3"
       header={
-        <div className="flex h-11 items-center border-border border-b">
+        <div className="flex h-11 items-center border-b border-border">
           <DataSourcePanelHeader
             total={total}
             loadedCount={items.length}
@@ -226,18 +227,18 @@ const DataSourcePanel = ({
               type="button"
               variant="ghost"
               onClick={handleNavigateUp}
-              className="h-auto min-h-0 gap-1 px-2.5 py-0 text-foreground text-sm opacity-70 shadow-none transition-opacity hover:bg-transparent hover:text-foreground hover:opacity-100">
+              className="h-auto min-h-0 gap-1 px-2.5 py-0 text-sm text-foreground opacity-70 shadow-none transition-opacity hover:bg-transparent hover:text-foreground hover:opacity-100">
               <ChevronLeft className="size-4" />
               {t('knowledge.data_source.back_to_parent')}
             </Button>
-            <span className="min-w-0 truncate text-muted-foreground text-sm" title={getItemTitle(currentDirectory)}>
+            <span className="min-w-0 truncate text-sm text-muted-foreground" title={getItemTitle(currentDirectory)}>
               {getItemTitle(currentDirectory)}
             </span>
           </div>
         )}
         {!isLoading && items.length === 0 ? (
           currentDirectory ? (
-            <div className="flex min-h-0 flex-1 items-center justify-center px-6 py-12 text-center text-foreground-tertiary text-sm">
+            <div className="flex min-h-0 flex-1 items-center justify-center px-6 py-12 text-center text-sm text-foreground-tertiary">
               {t('knowledge.data_source.empty_folder')}
             </div>
           ) : (

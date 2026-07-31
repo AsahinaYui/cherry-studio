@@ -1,7 +1,8 @@
-import { application } from '@application'
 import { agentChannelService } from '@data/services/AgentChannelService'
 import { agentService } from '@data/services/AgentService'
 import { agentTaskService } from '@data/services/AgentTaskService'
+
+import { application } from '@application'
 import { loggerService } from '@logger'
 import { BaseService, DependsOn, Injectable, Phase, ServicePhase } from '@main/core/lifecycle'
 import type { ScheduledTaskEntity } from '@shared/data/api/schemas/agents'

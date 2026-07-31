@@ -1,5 +1,6 @@
-import type { KnowledgeItem, KnowledgeItemOf } from '@shared/data/types/knowledge'
 import type { Document } from '@vectorstores/core'
+
+import type { KnowledgeItem, KnowledgeItemOf } from '@shared/data/types/knowledge'
 
 import { loadFileDocuments } from './KnowledgeFileReader'
 import { loadSnapshotDocuments } from './KnowledgeSnapshotReader'

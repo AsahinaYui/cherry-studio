@@ -1,12 +1,13 @@
-import { Tooltip } from '@cherrystudio/ui'
-import { loggerService } from '@logger'
-import { ContentSearch, type ContentSearchRef } from '@renderer/components/ContentSearch'
 import DragHandle from '@tiptap/extension-drag-handle-react'
 import { EditorContent } from '@tiptap/react'
 import { t } from 'i18next'
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, GripVertical, Plus, Trash2 } from 'lucide-react'
 import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
+
+import { Tooltip } from '@cherrystudio/ui'
+import { loggerService } from '@logger'
+import { ContentSearch, type ContentSearchRef } from '@renderer/components/ContentSearch'
 
 import Scrollbar from '../Scrollbar'
 import {

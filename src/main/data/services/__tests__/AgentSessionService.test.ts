@@ -1,4 +1,5 @@
-import { application } from '@application'
+import path from 'path'
+
 import { agentTable } from '@data/db/schemas/agent'
 import { agentSessionTable } from '@data/db/schemas/agentSession'
 import { agentSessionMessageTable } from '@data/db/schemas/agentSessionMessage'
@@ -6,12 +7,13 @@ import { agentWorkspaceTable } from '@data/db/schemas/agentWorkspace'
 import { pinTable } from '@data/db/schemas/pin'
 import { agentSessionService } from '@data/services/AgentSessionService'
 import { agentWorkspaceService } from '@data/services/AgentWorkspaceService'
-import { ErrorCode } from '@shared/data/api/errors'
-import type { AgentWorkspaceEntity } from '@shared/data/api/schemas/agentWorkspaces'
 import { setupTestDatabase } from '@test-helpers/db'
 import { eq } from 'drizzle-orm'
-import path from 'path'
 import { afterEach, beforeEach, describe, expect, it, type Mock } from 'vitest'
+
+import { application } from '@application'
+import { ErrorCode } from '@shared/data/api/errors'
+import type { AgentWorkspaceEntity } from '@shared/data/api/schemas/agentWorkspaces'
 
 function buildSystemWorkspacePath(systemWorkspacesRoot: string, sessionId: string, createdAt: number): string {
   return path.join(systemWorkspacesRoot, new Date(createdAt).toISOString().slice(0, 10), sessionId)

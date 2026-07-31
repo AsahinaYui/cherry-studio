@@ -1,6 +1,11 @@
+import { usePreference } from '@data/hooks/usePreference'
+import { ChevronDown, Languages, MessageSquareMore, Palette, Rocket, RotateCcw, Settings2 } from 'lucide-react'
+import type { ComponentProps, FC, ReactNode } from 'react'
+import { useCallback, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { Avatar, AvatarFallback, Button, InfoTooltip, PageSidePanel, Tooltip } from '@cherrystudio/ui'
 import { useIcon } from '@cherrystudio/ui/icons'
-import { usePreference } from '@data/hooks/usePreference'
 import { loggerService } from '@logger'
 import { getProviderDisplayName, ModelSelector } from '@renderer/components/ModelSelector'
 import {
@@ -24,10 +29,6 @@ import { TRANSLATE_PROMPT } from '@shared/ai/prompts'
 import { type Model } from '@shared/data/types/model'
 import type { Provider } from '@shared/data/types/provider'
 import { isGenerateImageModel, isNonChatModel } from '@shared/utils/model'
-import { ChevronDown, Languages, MessageSquareMore, Palette, Rocket, RotateCcw, Settings2 } from 'lucide-react'
-import type { ComponentProps, FC, ReactNode } from 'react'
-import { useCallback, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { TopicNamingSettings } from './TopicNamingSettings'
 
@@ -122,7 +123,7 @@ const ModelSelectorTriggerButton: FC<ModelSelectorTriggerProps> = ({
           </Avatar>
         ) : null}
         <span className="min-w-0 flex-1 truncate">{model?.name ?? placeholder}</span>
-        {providerName && <span className="max-w-[32%] truncate text-muted-foreground text-xs">{providerName}</span>}
+        {providerName && <span className="max-w-[32%] truncate text-xs text-muted-foreground">{providerName}</span>}
       </span>
       <ChevronDown size={14} className="shrink-0 text-muted-foreground" />
     </Button>

@@ -1,13 +1,14 @@
-import { Tooltip } from '@cherrystudio/ui'
 import { usePreference } from '@data/hooks/usePreference'
-import ActionIconButton from '@renderer/components/ActionIconButton'
-import NarrowLayout from '@renderer/components/chat/layout/NarrowLayout'
-import { scrollElementIntoView } from '@renderer/utils/dom'
-import { classNames } from '@renderer/utils/style'
 import { debounce } from 'es-toolkit/compat'
 import { CaseSensitive, ChevronDown, ChevronUp, User, WholeWord, X } from 'lucide-react'
 import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { Tooltip } from '@cherrystudio/ui'
+import ActionIconButton from '@renderer/components/ActionIconButton'
+import NarrowLayout from '@renderer/components/chat/layout/NarrowLayout'
+import { scrollElementIntoView } from '@renderer/utils/dom'
+import { classNames } from '@renderer/utils/style'
 
 interface Props {
   children?: React.ReactNode

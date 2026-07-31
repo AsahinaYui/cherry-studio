@@ -1,9 +1,10 @@
+import { useMemo } from 'react'
+
 import { useToolResult } from '@renderer/hooks/useToolResult'
 import type { McpToolResponse, NormalToolResponse } from '@renderer/types/mcpTool'
 import type { McpTool } from '@renderer/types/tool'
 import { normalizeToolOutputResponse } from '@renderer/utils/message/toolOutput'
 import { isDeferredToolOutput } from '@shared/ai/transport'
-import { useMemo } from 'react'
 
 import { isReportArtifactsToolResponse, MessageChannelConfigTool } from './agent'
 import { isChannelAuthQrToolResponse } from './channelConfigTool'

@@ -1,3 +1,7 @@
+import { ChevronRight, CircleHelp, Minus, Plus } from 'lucide-react'
+import { memo, useCallback, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { Avatar, AvatarFallback, Badge, Button, EmptyState, Spinner, Tooltip } from '@cherrystudio/ui'
 import { useIcon } from '@cherrystudio/ui/icons'
 import { cn } from '@cherrystudio/ui/lib/utils'
@@ -5,9 +9,6 @@ import { DynamicVirtualList } from '@renderer/components/VirtualList'
 import { getModelLogoRef } from '@renderer/utils/model'
 import type { Model, UniqueModelId } from '@shared/data/types/model'
 import { parseUniqueModelId } from '@shared/data/types/model'
-import { ChevronRight, CircleHelp, Minus, Plus } from 'lucide-react'
-import { memo, useCallback, useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import ModelTagsWithLabel, { type ModelTagsWithLabelModel } from '../components/ModelTagsWithLabel'
 import { modelListClasses, modelSyncClasses } from '../primitives/ProviderSettingsPrimitives'

@@ -1,3 +1,9 @@
+import dayjs from 'dayjs'
+import { ChevronLeft, ChevronRight, CircleAlert, RefreshCw, Trash2 } from 'lucide-react'
+import type { Key } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import type { ColumnDef } from '@cherrystudio/ui'
 import {
   Button,
@@ -15,11 +21,6 @@ import { restoreFromLocal } from '@renderer/services/BackupService'
 import { popup } from '@renderer/services/popup'
 import { toast } from '@renderer/services/toast'
 import { formatFileSize } from '@renderer/utils/file'
-import dayjs from 'dayjs'
-import { ChevronLeft, ChevronRight, CircleAlert, RefreshCw, Trash2 } from 'lucide-react'
-import type { Key } from 'react'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 interface BackupFile {
   fileName: string
@@ -269,7 +270,7 @@ export function LocalBackupManager({ visible, onClose, localBackupDir, restoreMe
             )}
           </div>
           {backupFiles.length > PAGE_SIZE && (
-            <div className="flex items-center justify-end gap-2 text-muted-foreground text-sm">
+            <div className="flex items-center justify-end gap-2 text-sm text-muted-foreground">
               <span>
                 {safeCurrentPage} / {totalPages}
               </span>

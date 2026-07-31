@@ -22,9 +22,10 @@
  * - data-code (code blocks)
  */
 
+import * as z from 'zod'
+
 import type { AgentSessionCompactionAnchorData } from '@shared/ai/agentSessionCompaction'
 import { type FileType, FileTypeSchema } from '@shared/types/file'
-import * as z from 'zod'
 
 import type { SerializedError } from '../../types/error'
 import type { CherryMessagePart } from './message'

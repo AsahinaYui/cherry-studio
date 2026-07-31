@@ -1,8 +1,9 @@
+import { renderHook } from '@testing-library/react'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
 import { useAgentModelFilter } from '@renderer/hooks/agent/useAgentModelFilter'
 import { type Model, MODEL_CAPABILITY } from '@shared/data/types/model'
 import type { Provider } from '@shared/data/types/provider'
-import { renderHook } from '@testing-library/react'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type { ModelSelectorModelItem } from '../types'
 import { useModelSelectorData } from '../useModelSelectorData'

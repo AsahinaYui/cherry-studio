@@ -1,5 +1,6 @@
-import type { KnowledgeItem, KnowledgeItemOf } from '@shared/data/types/knowledge'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+import type { KnowledgeItem, KnowledgeItemOf } from '@shared/data/types/knowledge'
 
 import type * as PathStorage from '../storage/pathStorage'
 
@@ -17,9 +18,8 @@ vi.mock('../storage/pathStorage', async () => {
   }
 })
 
-const { canKnowledgeItemRebuildSource, classifyKnowledgeItemSource, isIndexableKnowledgeItem } = await import(
-  '../items'
-)
+const { canKnowledgeItemRebuildSource, classifyKnowledgeItemSource, isIndexableKnowledgeItem } =
+  await import('../items')
 
 function createItem(type: KnowledgeItem['type']): KnowledgeItem {
   const base = {

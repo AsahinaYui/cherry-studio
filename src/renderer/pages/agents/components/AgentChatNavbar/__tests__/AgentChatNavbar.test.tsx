@@ -1,9 +1,10 @@
-// @vitest-environment jsdom
-import { WindowFrameProvider } from '@renderer/components/chat/shell/WindowFrameContext'
-import { useCommandHandler } from '@renderer/hooks/command'
 import { render } from '@testing-library/react'
 import type { HTMLAttributes, ReactNode } from 'react'
 import { describe, expect, it, vi } from 'vitest'
+
+// @vitest-environment jsdom
+import { WindowFrameProvider } from '@renderer/components/chat/shell/WindowFrameContext'
+import { useCommandHandler } from '@renderer/hooks/command'
 
 vi.mock('@renderer/components/Navbar', () => ({
   NavbarHeader: ({ children, ...props }: HTMLAttributes<HTMLDivElement> & { children: ReactNode }) => (

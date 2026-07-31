@@ -1,7 +1,9 @@
 import type { ProviderOptions } from '@ai-sdk/provider-utils'
+import { projectRuntimeReasoning, providerRegistryService } from '@data/services/ProviderRegistryService'
+import { type JSONValue, stepCountIs, type StopCondition, type ToolSet, type UIMessage } from 'ai'
+
 import { application } from '@application'
 import type { AiPlugin } from '@cherrystudio/ai-core'
-import { projectRuntimeReasoning, providerRegistryService } from '@data/services/ProviderRegistryService'
 import { loggerService } from '@logger'
 import { MAX_TOOL_CALLS, MIN_TOOL_CALLS } from '@main/ai/constants'
 import { resolveKnowledgeBaseScope } from '@main/ai/utils/knowledgeScope'
@@ -15,7 +17,6 @@ import { type Assistant, DEFAULT_ASSISTANT_SETTINGS } from '@shared/data/types/a
 import { ENDPOINT_TYPE, type Model } from '@shared/data/types/model'
 import type { Provider } from '@shared/data/types/provider'
 import { isFunctionCallingModel } from '@shared/utils/model'
-import { type JSONValue, stepCountIs, type StopCondition, type ToolSet, type UIMessage } from 'ai'
 
 import { collectFileAttachments } from '../../../messages/attachmentRouting'
 import type { FileAttachmentRef } from '../../../messages/attachmentTypes'

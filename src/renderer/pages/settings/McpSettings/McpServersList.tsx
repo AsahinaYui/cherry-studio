@@ -1,3 +1,9 @@
+import { useNavigate } from '@tanstack/react-router'
+import { Check, ChevronDown, Filter, Plus } from 'lucide-react'
+import type { FC } from 'react'
+import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import {
   Button,
   EmptyState,
@@ -18,11 +24,6 @@ import { toast } from '@renderer/services/toast'
 import { matchKeywordsInString } from '@renderer/utils/match'
 import type { CreateMcpServerDto } from '@shared/data/api/schemas/mcpServers'
 import type { McpServer } from '@shared/data/types/mcpServer'
-import { useNavigate } from '@tanstack/react-router'
-import { Check, ChevronDown, Filter, Plus } from 'lucide-react'
-import type { FC } from 'react'
-import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import AddMcpServerModal from './AddMcpServerModal'
 import McpServerCard from './McpServerCard'

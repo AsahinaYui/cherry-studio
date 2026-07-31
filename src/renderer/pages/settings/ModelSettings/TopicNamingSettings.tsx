@@ -1,3 +1,8 @@
+import { usePreference } from '@data/hooks/usePreference'
+import { CircleHelp } from 'lucide-react'
+import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import {
   Button,
   ColFlex,
@@ -10,12 +15,8 @@ import {
   Switch,
   Textarea
 } from '@cherrystudio/ui'
-import { usePreference } from '@data/hooks/usePreference'
 import ResetIcon from '@renderer/components/icons/ResetIcon'
 import { SettingSubtitle } from '@renderer/components/SettingsPrimitives'
-import { CircleHelp } from 'lucide-react'
-import { useCallback } from 'react'
-import { useTranslation } from 'react-i18next'
 
 export const TopicNamingSettings = () => {
   const [enableTopicNaming, setEnableTopicNaming] = usePreference('topic.naming.enabled')
@@ -32,7 +33,7 @@ export const TopicNamingSettings = () => {
 
       <ColFlex className="items-stretch rounded-md border border-border-subtle">
         <RowFlex className="min-h-11 items-center justify-between gap-4 px-3 py-2.5">
-          <div className="text-foreground text-sm">{t('settings.models.topic_naming.auto')}</div>
+          <div className="text-sm text-foreground">{t('settings.models.topic_naming.auto')}</div>
           <Switch checked={enableTopicNaming} onCheckedChange={setEnableTopicNaming} />
         </RowFlex>
 
@@ -41,7 +42,7 @@ export const TopicNamingSettings = () => {
         <div className="space-y-2 px-3 pt-3 pb-3.5">
           <Flex className="min-h-7 items-center justify-between gap-2">
             <RowFlex className="min-w-0 flex-1 items-center gap-1.5">
-              <div className="truncate text-foreground text-sm">{t('settings.models.topic_naming.prompt')}</div>
+              <div className="truncate text-sm text-foreground">{t('settings.models.topic_naming.prompt')}</div>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button variant="ghost" size="icon-sm" className="size-6 shrink-0 text-muted-foreground">
@@ -50,7 +51,7 @@ export const TopicNamingSettings = () => {
                 </PopoverTrigger>
                 <PopoverContent align="start" className="w-80">
                   <div className="mb-2 text-sm">{t('assistants.presets.add.prompt.variables.tip.title')}</div>
-                  <pre className="whitespace-pre-wrap text-muted-foreground text-xs leading-5">
+                  <pre className="text-xs leading-5 whitespace-pre-wrap text-muted-foreground">
                     {t('assistants.presets.add.prompt.variables.tip.content')}
                   </pre>
                 </PopoverContent>

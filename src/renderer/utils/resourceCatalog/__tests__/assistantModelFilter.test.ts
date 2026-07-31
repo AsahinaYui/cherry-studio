@@ -1,5 +1,6 @@
-import { type Model, MODEL_CAPABILITY } from '@shared/data/types/model'
 import { describe, expect, it } from 'vitest'
+
+import { type Model, MODEL_CAPABILITY } from '@shared/data/types/model'
 
 import { isSelectableAssistantModel } from '../assistantModelFilter'
 

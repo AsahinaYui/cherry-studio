@@ -1,8 +1,9 @@
-import { toast } from '@renderer/services/toast'
-import type { KnowledgeBase } from '@shared/data/types/knowledge'
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { type ReactNode, useState } from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+import { toast } from '@renderer/services/toast'
+import type { KnowledgeBase } from '@shared/data/types/knowledge'
 
 import RestoreKnowledgeBaseDialog from '../RestoreKnowledgeBaseDialog'
 

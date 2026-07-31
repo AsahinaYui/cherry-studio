@@ -1,9 +1,11 @@
-import { application } from '@application'
 import { knowledgeBaseService } from '@data/services/KnowledgeBaseService'
 import { knowledgeItemService } from '@data/services/KnowledgeItemService'
+import { TraceMethod } from '@mcp-trace/trace-core'
+import { estimateTokenCount } from 'tokenx'
+
+import { application } from '@application'
 import { loggerService } from '@logger'
 import { BaseService, DependsOn, Injectable, Phase, ServicePhase } from '@main/core/lifecycle'
-import { TraceMethod } from '@mcp-trace/trace-core'
 import { DataApiErrorFactory, ErrorCode, isDataApiError } from '@shared/data/api/errors'
 import { KNOWLEDGE_BASES_MAX_LIMIT, type UpdateKnowledgeBaseDto } from '@shared/data/api/schemas/knowledges'
 import {
@@ -25,7 +27,6 @@ import {
 } from '@shared/data/types/knowledge'
 import { isCompletedVectorKnowledgeBase } from '@shared/data/types/knowledge'
 import type { AbsoluteFilePath } from '@shared/types/file'
-import { estimateTokenCount } from 'tokenx'
 
 import { KnowledgeLockManager } from './KnowledgeLockManager'
 import { KnowledgeWorkflowService } from './KnowledgeWorkflowService'

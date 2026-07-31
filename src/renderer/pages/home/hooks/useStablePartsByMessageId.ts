@@ -38,9 +38,10 @@
  *   identity when no relevant message changed.
  */
 
+import { useMemo, useRef } from 'react'
+
 import type { TranslationOverlayEntry } from '@renderer/components/chat/messages/blocks/MessagePartsContext'
 import type { CherryMessagePart, CherryUIMessage } from '@shared/data/types/message'
-import { useMemo, useRef } from 'react'
 
 export interface StableMessagePartsLayers {
   historyPartsByMessageId: Record<string, CherryMessagePart[]>

@@ -17,11 +17,12 @@
  * `components` prop reference across re-renders.
  */
 
+import { useMemo } from 'react'
+import type { Components } from 'streamdown'
+
 import ImageViewer from '@renderer/components/ImageViewer'
 import MarkdownShadowDomRenderer from '@renderer/components/MarkdownShadowDomRenderer'
 import type { Citation } from '@renderer/types/message'
-import { useMemo } from 'react'
-import type { Components } from 'streamdown'
 
 import type { InlineHtmlPreviewMode } from './ChatMarkdown'
 import CitationSup from './CitationSup'

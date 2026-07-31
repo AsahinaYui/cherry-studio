@@ -1,6 +1,7 @@
+import * as z from 'zod'
+
 import type { McpServer } from '@shared/data/types/mcpServer'
 import type { McpProgressEvent, McpServerLogEntry } from '@shared/types/mcp'
-import * as z from 'zod'
 
 import { defineRoute } from '../define'
 

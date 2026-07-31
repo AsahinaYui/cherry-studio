@@ -1,8 +1,9 @@
 import type { ProviderOptions } from '@ai-sdk/provider-utils'
 import type { SourceSnapshot } from '@data/services/AiUsageRecordService'
+import type { ChatTransport, ToolChoice, ToolSet, UIMessage } from 'ai'
+
 import type { UniqueModelId } from '@shared/data/types/model'
 import type { ReasoningEffortOption } from '@shared/types/aiSdk'
-import type { ChatTransport, ToolChoice, ToolSet, UIMessage } from 'ai'
 
 /**
  * IPC-safe per-request transport config. Every field here survives

@@ -11,9 +11,10 @@
  * Zod schemas are the single source of truth — all types derived via z.infer<>
  */
 
+import * as z from 'zod'
+
 import type { EndpointType } from '@cherrystudio/provider-registry'
 import { CURRENCY, ENDPOINT_TYPE, FastModeTransportSchema, objectValues } from '@cherrystudio/provider-registry'
-import * as z from 'zod'
 
 // ─── Schemas formerly from provider-registry/schemas ─────────────────────────
 

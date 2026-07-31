@@ -1,7 +1,8 @@
-import { BaseService } from '@main/core/lifecycle'
-import type { McpServer } from '@shared/data/types/mcpServer'
 import { MockMainCacheServiceUtils } from '@test-mocks/main/CacheService'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+import { BaseService } from '@main/core/lifecycle'
+import type { McpServer } from '@shared/data/types/mcpServer'
 
 const mcpCatalogMock = vi.hoisted(() => ({
   clearSharedToolsCache: vi.fn(),
@@ -105,9 +106,8 @@ vi.mock('@modelcontextprotocol/sdk/client/index.js', () => ({
   Client: mcpSdkMock.Client
 }))
 
-const { McpRuntimeService, redactSensitive, McpCallToolPayloadSchema, McpGetResourcePayloadSchema } = await import(
-  '../McpRuntimeService'
-)
+const { McpRuntimeService, redactSensitive, McpCallToolPayloadSchema, McpGetResourcePayloadSchema } =
+  await import('../McpRuntimeService')
 
 /** Build the JSON server key the service uses internally (only `id` is read by close logic). */
 function serverKeyFor(id: string): string {

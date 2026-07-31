@@ -1,3 +1,6 @@
+import { Loader2 } from 'lucide-react'
+import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+
 import {
   Command,
   CommandGroup,
@@ -12,8 +15,6 @@ import {
 } from '@cherrystudio/ui'
 import { loggerService } from '@logger'
 import Scrollbar from '@renderer/components/Scrollbar'
-import { Loader2 } from 'lucide-react'
-import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 const logger = loggerService.withContext('ConversationPickerDialog')
 
@@ -116,8 +117,8 @@ export function ConversationPickerDialog<T extends ConversationPickerItem>({
 
         <Command
           shouldFilter={false}
-          className="min-h-0 flex-1 bg-card [&_[data-slot=command-input-wrapper]>svg]:size-8 [&_[data-slot=command-input-wrapper]>svg]:rounded-full [&_[data-slot=command-input-wrapper]>svg]:bg-secondary [&_[data-slot=command-input-wrapper]>svg]:p-2 [&_[data-slot=command-input-wrapper]>svg]:text-foreground-tertiary [&_[data-slot=command-input-wrapper]>svg]:opacity-100 [&_[data-slot=command-input-wrapper]]:h-[38px] [&_[data-slot=command-input-wrapper]]:flex-1 [&_[data-slot=command-input-wrapper]]:gap-2.5 [&_[data-slot=command-input-wrapper]]:border-b-0 [&_[data-slot=command-input-wrapper]]:px-3 [&_[data-slot=command-input]]:h-full [&_[data-slot=command-input]]:py-0 [&_[data-slot=command-input]]:text-foreground [&_[data-slot=command-input]]:text-sm">
-          <div className="flex items-center gap-2 border-border border-b py-1 pr-3">
+          className="min-h-0 flex-1 bg-card [&_[data-slot=command-input-wrapper]]:h-[38px] [&_[data-slot=command-input-wrapper]]:flex-1 [&_[data-slot=command-input-wrapper]]:gap-2.5 [&_[data-slot=command-input-wrapper]]:border-b-0 [&_[data-slot=command-input-wrapper]]:px-3 [&_[data-slot=command-input-wrapper]>svg]:size-8 [&_[data-slot=command-input-wrapper]>svg]:rounded-full [&_[data-slot=command-input-wrapper]>svg]:bg-secondary [&_[data-slot=command-input-wrapper]>svg]:p-2 [&_[data-slot=command-input-wrapper]>svg]:text-foreground-tertiary [&_[data-slot=command-input-wrapper]>svg]:opacity-100 [&_[data-slot=command-input]]:h-full [&_[data-slot=command-input]]:py-0 [&_[data-slot=command-input]]:text-sm [&_[data-slot=command-input]]:text-foreground">
+          <div className="flex items-center gap-2 border-b border-border py-1 pr-3">
             <CommandInput
               autoFocus
               value={query}
@@ -142,7 +143,7 @@ export function ConversationPickerDialog<T extends ConversationPickerItem>({
                     <span className="flex size-6 shrink-0 items-center justify-center rounded-lg text-muted-foreground group-hover:text-foreground group-focus-visible:text-foreground group-data-[selected=true]:text-foreground [&_svg]:size-4 [&_svg]:shrink-0">
                       {createAction.icon}
                     </span>
-                    <span className="min-w-0 flex-1 truncate font-medium text-foreground text-sm leading-5">
+                    <span className="min-w-0 flex-1 truncate text-sm leading-5 font-medium text-foreground">
                       {createAction.label}
                     </span>
                   </CommandItem>
@@ -151,7 +152,7 @@ export function ConversationPickerDialog<T extends ConversationPickerItem>({
               {isLoading ? (
                 <div
                   role="status"
-                  className="flex min-h-48 items-center justify-center gap-2 text-foreground-tertiary text-sm">
+                  className="flex min-h-48 items-center justify-center gap-2 text-sm text-foreground-tertiary">
                   <Loader2 className="size-4 animate-spin" />
                   <span>{labels.loadingText}</span>
                 </div>
@@ -172,14 +173,14 @@ export function ConversationPickerDialog<T extends ConversationPickerItem>({
                       <span className="flex size-6 shrink-0 items-center justify-center rounded-lg text-muted-foreground group-hover:text-foreground group-focus-visible:text-foreground group-data-[selected=true]:text-foreground [&_svg]:size-4 [&_svg]:shrink-0">
                         {item.icon}
                       </span>
-                      <span className="min-w-0 flex-1 truncate font-medium text-foreground text-sm leading-5">
+                      <span className="min-w-0 flex-1 truncate text-sm leading-5 font-medium text-foreground">
                         {item.name}
                       </span>
                     </CommandItem>
                   ))}
                 </CommandGroup>
               ) : (
-                <div className="flex min-h-48 items-center justify-center text-foreground-tertiary text-sm">
+                <div className="flex min-h-48 items-center justify-center text-sm text-foreground-tertiary">
                   {labels.emptyText}
                 </div>
               )}

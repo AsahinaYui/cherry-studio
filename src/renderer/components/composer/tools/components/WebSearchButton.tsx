@@ -1,3 +1,9 @@
+import { useNavigate } from '@tanstack/react-router'
+import { Globe } from 'lucide-react'
+import type { FC, MouseEventHandler } from 'react'
+import { memo, useCallback, useEffect, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { Tooltip } from '@cherrystudio/ui'
 import ActionIconButton from '@renderer/components/ActionIconButton'
 import { getQuickPanelSearchAliases } from '@renderer/components/composer/quickPanel'
@@ -14,11 +20,6 @@ import { getWebSearchProviderLogo } from '@renderer/utils/webSearchProviderMeta'
 import type { WebSearchProviderId } from '@shared/data/preference/preferenceTypes'
 import { isGemini3Model, isGeminiModel, isGPT5SeriesReasoningModel, isOpenAIWebSearchModel } from '@shared/utils/model'
 import { isGeminiWebSearchProvider } from '@shared/utils/provider'
-import { useNavigate } from '@tanstack/react-router'
-import { Globe } from 'lucide-react'
-import type { FC, MouseEventHandler } from 'react'
-import { memo, useCallback, useEffect, useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
 
 interface Props {
   assistantId: string
@@ -54,19 +55,19 @@ const useWebSearchToolController = ({ assistantId, launcher }: Props) => {
   const providerLogo = !hasBuiltinWebSearch && activeProviderId ? getWebSearchProviderLogo(activeProviderId) : undefined
   const hasGeminiWebSearchConflict = Boolean(
     modelProvider &&
-      assistant &&
-      model &&
-      isGeminiWebSearchProvider(modelProvider) &&
-      isGeminiModel(model) &&
-      !isGemini3Model(model) &&
-      getEffectiveMcpMode(assistant) !== 'disabled'
+    assistant &&
+    model &&
+    isGeminiWebSearchProvider(modelProvider) &&
+    isGeminiModel(model) &&
+    !isGemini3Model(model) &&
+    getEffectiveMcpMode(assistant) !== 'disabled'
   )
   const hasOpenAIMinimalWebSearchConflict = Boolean(
     model &&
-      assistant &&
-      isOpenAIWebSearchModel(model) &&
-      isGPT5SeriesReasoningModel(model) &&
-      assistant.settings.reasoning_effort === 'minimal'
+    assistant &&
+    isOpenAIWebSearchModel(model) &&
+    isGPT5SeriesReasoningModel(model) &&
+    assistant.settings.reasoning_effort === 'minimal'
   )
   const disabledReason =
     !enableWebSearch && hasSearchBackend

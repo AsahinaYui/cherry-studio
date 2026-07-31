@@ -1,9 +1,10 @@
 import type * as NodeFs from 'node:fs'
 
-import { application } from '@application'
 import { MockMainPreferenceServiceUtils } from '@test-mocks/main/PreferenceService'
 import { app } from 'electron'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+import { application } from '@application'
 
 const mocks = vi.hoisted(() => ({
   existsSync: vi.fn(),

@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version bump type or exact version (patch / minor / major / x.y.z / x.y.z-beta.N)"
+        description: 'Version bump type or exact version (patch / minor / major / x.y.z / x.y.z-beta.N)'
         required: true
-        default: "patch"
+        default: 'patch'
         type: string
 
   # Ensure this workflow only runs from the default branch

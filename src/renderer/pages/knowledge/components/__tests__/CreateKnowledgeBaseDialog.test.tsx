@@ -1,8 +1,9 @@
-import type { Group } from '@shared/data/types/group'
-import type { KnowledgeBase } from '@shared/data/types/knowledge'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import type { ReactNode } from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+import type { Group } from '@shared/data/types/group'
+import type { KnowledgeBase } from '@shared/data/types/knowledge'
 
 import CreateKnowledgeBaseDialog from '../CreateKnowledgeBaseDialog'
 

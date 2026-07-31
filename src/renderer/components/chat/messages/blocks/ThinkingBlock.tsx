@@ -1,6 +1,7 @@
-import { type MarkdownSource } from '@cherrystudio/ui'
 import { type CSSProperties, memo, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { type MarkdownSource } from '@cherrystudio/ui'
 
 import ChatMarkdown from '../markdown/ChatMarkdown'
 import { useMessageRenderConfig } from '../MessageListProvider'
@@ -111,7 +112,7 @@ const ThinkingBlock: React.FC<Props> = ({ id, content, isStreaming, showTitlePre
               <div
                 ref={previewRef}
                 aria-hidden="true"
-                className="min-w-0 flex-1 overflow-hidden whitespace-nowrap text-[13px] leading-5"
+                className="min-w-0 flex-1 overflow-hidden text-[13px] leading-5 whitespace-nowrap"
                 style={{
                   color: THINKING_MUTED_COLOR,
                   maskImage: 'linear-gradient(to right, transparent, black 24px)',
@@ -122,7 +123,7 @@ const ThinkingBlock: React.FC<Props> = ({ id, content, isStreaming, showTitlePre
             ) : showTitlePreview && previewText ? (
               <span
                 aria-hidden="true"
-                className="min-w-0 flex-1 truncate whitespace-nowrap text-[13px] leading-5"
+                className="min-w-0 flex-1 truncate text-[13px] leading-5 whitespace-nowrap"
                 style={{ color: THINKING_MUTED_COLOR }}>
                 {previewText}
               </span>
