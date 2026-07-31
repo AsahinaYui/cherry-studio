@@ -1176,7 +1176,7 @@ describe('deriveConnectionConfig', () => {
     expect(secondSelection.config.rebuildSignature).toBe(firstSelection.config.rebuildSignature)
   })
 
-  it('rebuilds for model display-name changes only when runtime context is enabled', async () => {
+  it('fingerprints the model display name for runtime context only when enabled', async () => {
     let modelName = 'Claude Sonnet'
     mocks.getModelByKey.mockImplementation((_providerId: string, modelId: string) => ({
       id: modelId,
@@ -1195,7 +1195,9 @@ describe('deriveConnectionConfig', () => {
     modelName = 'Renamed Claude Sonnet'
     const enabledAfterRename = await deriveSignature()
 
-    expect(enabledAfterRename.rebuildSignature).not.toBe(enabledBeforeRename.rebuildSignature)
+    expect(enabledAfterRename.rebuildFactFingerprints.runtimeContextModelName).not.toBe(
+      enabledBeforeRename.rebuildFactFingerprints.runtimeContextModelName
+    )
 
     mocks.getAgent.mockReturnValue({
       id: 'agent-1',
@@ -1208,7 +1210,9 @@ describe('deriveConnectionConfig', () => {
     modelName = 'Renamed Again'
     const disabledAfterSecondRename = await deriveSignature()
 
-    expect(disabledAfterSecondRename.rebuildSignature).toBe(disabledAfterRename.rebuildSignature)
+    expect(disabledAfterSecondRename.rebuildFactFingerprints.runtimeContextModelName).toBe(
+      disabledAfterRename.rebuildFactFingerprints.runtimeContextModelName
+    )
   })
 
   it('keeps permission mode live-only while disabled tools also require a rebuild', async () => {
