@@ -32,6 +32,8 @@ const messageEditingMock = vi.hoisted(() => ({
 }))
 
 const commandHandlerMock = vi.hoisted(() => vi.fn())
+const navigateMock = vi.hoisted(() => vi.fn())
+const openSettingsTabMock = vi.hoisted(() => vi.fn())
 const modelSelectorMock = vi.hoisted(() => ({
   props: [] as any[]
 }))
@@ -185,6 +187,10 @@ vi.mock('@renderer/services/EventService', () => ({
   EventEmitter: eventMocks
 }))
 
+vi.mock('@renderer/services/mainWindowNavigation', () => ({
+  openSettingsTab: openSettingsTabMock
+}))
+
 vi.mock('@renderer/utils/translate/translateInputText', () => ({
   translateInputText: vi.fn()
 }))
@@ -219,7 +225,7 @@ vi.mock('@shared/utils/model', () => ({
 }))
 
 vi.mock('@tanstack/react-router', () => ({
-  useNavigate: () => vi.fn()
+  useNavigate: () => navigateMock
 }))
 
 vi.mock('react-i18next', () => ({
@@ -466,6 +472,16 @@ describe('useHomeMessageListProviderValue topic image actions', () => {
     expect(value?.state.messages[0]).toBe(firstHistoryItem)
     expect(vi.mocked(toMessageListItem).mock.calls.filter(([message]) => message === historyMessage)).toHaveLength(1)
     expect(vi.mocked(toMessageListItem).mock.calls.filter(([message]) => message.id === liveMessage.id)).toHaveLength(2)
+  })
+
+  it('opens Settings tool targets without navigating away from the topic route', () => {
+    let value: MessageListProviderValue | undefined
+    render(<MessageListAdapterHarness topic={createTopic('topic-a')} onValue={(nextValue) => (value = nextValue)} />)
+
+    void value?.actions.navigateToRoute?.({ path: '/settings/provider', query: { id: 'provider-1' } })
+
+    expect(openSettingsTabMock).toHaveBeenCalledWith('/settings/provider', { id: 'provider-1' })
+    expect(navigateMock).not.toHaveBeenCalled()
   })
 
   it.each(['embedding', 'rerank'])('filters %s models from the regenerate model picker', (capability) => {

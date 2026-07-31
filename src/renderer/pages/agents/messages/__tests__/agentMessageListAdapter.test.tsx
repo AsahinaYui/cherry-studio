@@ -59,6 +59,7 @@ const headerCapabilitiesMock = vi.hoisted(() => ({
 }))
 const navigateMock = vi.hoisted(() => vi.fn())
 const ipcApiRequest = vi.hoisted(() => vi.fn())
+const openSettingsTabMock = vi.hoisted(() => vi.fn())
 const eventMocks = vi.hoisted(() => ({
   emit: vi.fn(),
   on: vi.fn(() => vi.fn()),
@@ -153,6 +154,10 @@ vi.mock('@renderer/components/chat/messages/hooks/useMessageHeaderCapabilities',
 
 vi.mock('@tanstack/react-router', () => ({
   useNavigate: () => navigateMock
+}))
+
+vi.mock('@renderer/services/mainWindowNavigation', () => ({
+  openSettingsTab: openSettingsTabMock
 }))
 
 vi.mock('@renderer/services/EventService', () => ({
@@ -338,10 +343,8 @@ describe('useAgentMessageListProviderValue', () => {
     expect(window.api.file.showInFolder).toHaveBeenCalledWith('/Users/me/report.md')
 
     void value?.actions.navigateToRoute?.({ path: '/settings/provider', query: { id: 'provider-1' } })
-    expect(navigateMock).toHaveBeenCalledWith({
-      to: '/settings/provider',
-      search: { id: 'provider-1' }
-    })
+    expect(openSettingsTabMock).toHaveBeenCalledWith('/settings/provider', { id: 'provider-1' })
+    expect(navigateMock).not.toHaveBeenCalled()
 
     const locateMessage = vi.fn()
     const startEditing = vi.fn()
