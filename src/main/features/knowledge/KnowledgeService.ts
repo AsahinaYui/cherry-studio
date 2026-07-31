@@ -1074,7 +1074,7 @@ export class KnowledgeService extends BaseService {
 
   private async getRootItemsInBase(baseId: string, itemIds: string[]): Promise<KnowledgeItem[]> {
     const rootIds = [...new Set(itemIds)]
-    const items = await Promise.all(rootIds.map((itemId) => knowledgeItemService.getById(itemId)))
+    const items = rootIds.map((itemId) => knowledgeItemService.getById(itemId))
     const invalidItem = items.find((item) => item.baseId !== baseId)
 
     if (invalidItem) {
