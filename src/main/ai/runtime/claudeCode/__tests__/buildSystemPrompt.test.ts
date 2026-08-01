@@ -57,7 +57,9 @@ vi.mock('@main/i18n', () => ({
 }))
 
 vi.mock('@main/ai/mcp/servers/cherryBuiltinTools', () => ({
-  default: vi.fn(() => ({ mcpServer: { id: 'cherry-tools' } }))
+  default: vi.fn(function CherryBuiltinToolsServerMock() {
+    return { mcpServer: { id: 'cherry-tools' } }
+  })
 }))
 
 vi.mock('@data/services/AgentChannelService', () => ({
@@ -79,7 +81,9 @@ vi.mock('@main/ai/agents/builtin/BuiltinAgentProvisioner', () => ({
 }))
 
 vi.mock('@main/ai/agents/prompt', () => ({
-  PromptBuilder: vi.fn(() => ({ buildSystemPrompt: mockBuildPrompt }))
+  PromptBuilder: vi.fn(function PromptBuilderMock() {
+    return { buildSystemPrompt: mockBuildPrompt }
+  })
 }))
 
 const { buildSystemPrompt } = await import('../settingsBuilder')

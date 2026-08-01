@@ -140,10 +140,12 @@ vi.mock('@main/data/db/restore/appliedChain', () => ({
 }))
 
 vi.mock('better-sqlite3', () => ({
-  default: vi.fn(() => ({
-    pragma: vi.fn(() => 'ok'),
-    close: vi.fn()
-  }))
+  default: vi.fn(function DatabaseMock() {
+    return {
+      pragma: vi.fn(() => 'ok'),
+      close: vi.fn()
+    }
+  })
 }))
 
 vi.mock('@logger', () => ({
@@ -378,7 +380,9 @@ describe('BackupManager direct v2 data compatibility', () => {
       finalize: vi.fn(() => closeOutput?.())
     }
     vi.mocked(fs.createWriteStream).mockReturnValue(output as never)
-    vi.mocked(ZipArchive).mockReturnValue(archive as never)
+    vi.mocked(ZipArchive).mockImplementation(function ZipArchiveMock() {
+      return archive as never
+    })
     return archive
   }
 

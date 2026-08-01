@@ -42,7 +42,6 @@ overrides:
   'rollup@>=4.0.0 <4.59.0': '4.59.0'
   'tmp@>=0.2.0 <0.2.7': '0.2.7'
   'underscore@<1.13.8': '1.13.8'
-  vite: 'npm:rolldown-vite@7.3.0'
   yaml: '2.8.2'
   '@img/sharp-darwin-arm64': '0.34.5'
   '@img/sharp-darwin-x64': '0.34.5'

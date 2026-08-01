@@ -134,23 +134,23 @@ import { contextMenu } from '../ContextMenu'
 import { MainWindowService } from '../MainWindowService'
 
 interface MockBrowserWindow extends EventEmitter {
-  isDestroyed: ReturnType<typeof vi.fn>
-  isFullScreen: ReturnType<typeof vi.fn>
-  isMinimized: ReturnType<typeof vi.fn>
-  isVisible: ReturnType<typeof vi.fn>
-  isFocused: ReturnType<typeof vi.fn>
-  hide: ReturnType<typeof vi.fn>
-  show: ReturnType<typeof vi.fn>
-  focus: ReturnType<typeof vi.fn>
-  restore: ReturnType<typeof vi.fn>
-  maximize: ReturnType<typeof vi.fn>
-  setVisibleOnAllWorkspaces: ReturnType<typeof vi.fn>
-  setFullScreen: ReturnType<typeof vi.fn>
+  isDestroyed: ReturnType<typeof vi.fn<(...args: any[]) => any>>
+  isFullScreen: ReturnType<typeof vi.fn<(...args: any[]) => any>>
+  isMinimized: ReturnType<typeof vi.fn<(...args: any[]) => any>>
+  isVisible: ReturnType<typeof vi.fn<(...args: any[]) => any>>
+  isFocused: ReturnType<typeof vi.fn<(...args: any[]) => any>>
+  hide: ReturnType<typeof vi.fn<(...args: any[]) => any>>
+  show: ReturnType<typeof vi.fn<(...args: any[]) => any>>
+  focus: ReturnType<typeof vi.fn<(...args: any[]) => any>>
+  restore: ReturnType<typeof vi.fn<(...args: any[]) => any>>
+  maximize: ReturnType<typeof vi.fn<(...args: any[]) => any>>
+  setVisibleOnAllWorkspaces: ReturnType<typeof vi.fn<(...args: any[]) => any>>
+  setFullScreen: ReturnType<typeof vi.fn<(...args: any[]) => any>>
   webContents: {
-    reload: ReturnType<typeof vi.fn>
-    on: ReturnType<typeof vi.fn>
-    setWindowOpenHandler: ReturnType<typeof vi.fn>
-    session: { webRequest: { onHeadersReceived: ReturnType<typeof vi.fn> } }
+    reload: ReturnType<typeof vi.fn<(...args: any[]) => any>>
+    on: ReturnType<typeof vi.fn<(...args: any[]) => any>>
+    setWindowOpenHandler: ReturnType<typeof vi.fn<(...args: any[]) => any>>
+    session: { webRequest: { onHeadersReceived: ReturnType<typeof vi.fn<(...args: any[]) => any>> } }
   }
 }
 
@@ -651,7 +651,9 @@ describe('MainWindowService', () => {
     })
 
     const webContentsCreatedRegistrations = () =>
-      (app.on as unknown as ReturnType<typeof vi.fn>).mock.calls.filter((call) => call[0] === 'web-contents-created')
+      (app.on as unknown as ReturnType<typeof vi.fn<(...args: any[]) => any>>).mock.calls.filter(
+        (call) => call[0] === 'web-contents-created'
+      )
 
     it('registers one app-level web-contents-created listener across main-window rebuilds', async () => {
       await (svc as any).onInit()

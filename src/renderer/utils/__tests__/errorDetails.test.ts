@@ -40,7 +40,7 @@ describe('formatErrorDetails', () => {
 // selection toolbar), so it must never statically reach the heavy error bucket.
 describe('errorDetails light import graph (B6)', () => {
   const HEAVY_DEPS = ['zod', 'ai', 'axios']
-  let loaded: ReturnType<typeof vi.fn>
+  let loaded: ReturnType<typeof vi.fn<(...args: any[]) => any>>
 
   beforeEach(() => {
     vi.resetModules()

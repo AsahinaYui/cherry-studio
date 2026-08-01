@@ -127,7 +127,7 @@ function createBase(id = 'kb-1'): KnowledgeBase {
 /** The store instance built by the most recent `new KnowledgeIndexStore(...)` call. */
 function lastStore() {
   const results = indexStoreCtorMock.mock.results
-  return results[results.length - 1]?.value as { close: ReturnType<typeof vi.fn> }
+  return results[results.length - 1]?.value as { close: ReturnType<typeof vi.fn<(...args: any[]) => any>> }
 }
 
 describe('KnowledgeVectorStoreService', () => {
@@ -153,13 +153,15 @@ describe('KnowledgeVectorStoreService', () => {
     hasAnyMaterialMock.mockReturnValue(true)
     getItemsByBaseIdMock.mockReturnValue([])
     deleteDirMock.mockResolvedValue(undefined)
-    indexStoreCtorMock.mockImplementation(() => ({
-      close: vi.fn().mockResolvedValue(undefined),
-      // The real store's hasAnyMaterial() delegates to the free indexMeta probe; mirror that here so
-      // the invisible-contents diagnostic (now run via the factory's afterOpen hook, on the store
-      // rather than the raw driver) reads through the same hasAnyMaterialMock.
-      hasAnyMaterial: hasAnyMaterialMock
-    }))
+    indexStoreCtorMock.mockImplementation(function KnowledgeIndexStoreMock() {
+      return {
+        close: vi.fn().mockResolvedValue(undefined),
+        // The real store's hasAnyMaterial() delegates to the free indexMeta probe; mirror that here so
+        // the invisible-contents diagnostic (now run via the factory's afterOpen hook, on the store
+        // rather than the raw driver) reads through the same hasAnyMaterialMock.
+        hasAnyMaterial: hasAnyMaterialMock
+      }
+    })
   })
 
   it('opens an index store on first request and caches it per base', async () => {
@@ -270,7 +272,7 @@ describe('KnowledgeVectorStoreService', () => {
   it('closes the driver and aborts the open when meta verification fails (wrong/corrupt base)', async () => {
     const service = new KnowledgeVectorStoreService()
     const base = createBase()
-    let openedDriver: { close: ReturnType<typeof vi.fn> } | undefined
+    let openedDriver: { close: ReturnType<typeof vi.fn<(...args: any[]) => any>> } | undefined
     openDriverMock.mockImplementationOnce(() => {
       openedDriver = { kind: 'driver', close: vi.fn().mockResolvedValue(undefined) } as never
       return openedDriver
@@ -288,7 +290,7 @@ describe('KnowledgeVectorStoreService', () => {
   it('closes the driver when schema creation fails so the file handle is not leaked', async () => {
     const service = new KnowledgeVectorStoreService()
     const base = createBase()
-    let openedDriver: { close: ReturnType<typeof vi.fn> } | undefined
+    let openedDriver: { close: ReturnType<typeof vi.fn<(...args: any[]) => any>> } | undefined
     openDriverMock.mockImplementationOnce(() => {
       openedDriver = { kind: 'driver', close: vi.fn().mockResolvedValue(undefined) } as never
       return openedDriver
@@ -346,9 +348,9 @@ describe('KnowledgeVectorStoreService', () => {
     expect(deleteDirMock).toHaveBeenCalledWith(base.id)
     // Close must precede directory removal — on Windows a still-open sqlite
     // handle makes the directory deletion fail.
-    expect((store.close as unknown as ReturnType<typeof vi.fn>).mock.invocationCallOrder[0]).toBeLessThan(
-      deleteDirMock.mock.invocationCallOrder[0]
-    )
+    expect(
+      (store.close as unknown as ReturnType<typeof vi.fn<(...args: any[]) => any>>).mock.invocationCallOrder[0]
+    ).toBeLessThan(deleteDirMock.mock.invocationCallOrder[0])
 
     // Cache was evicted: the next open builds a fresh instance.
     const reopened = await service.getIndexStore(base)
@@ -390,7 +392,7 @@ describe('KnowledgeVectorStoreService', () => {
     const first = await service.getIndexStore(createBase('kb-1'))
     const second = await service.getIndexStore(createBase('kb-2'))
     const closeError = new Error('close failed')
-    ;(first.close as unknown as ReturnType<typeof vi.fn>).mockRejectedValueOnce(closeError)
+    ;(first.close as unknown as ReturnType<typeof vi.fn<(...args: any[]) => any>>).mockRejectedValueOnce(closeError)
 
     await expect((service as any).onStop()).resolves.toBeUndefined()
 
@@ -492,7 +494,7 @@ describe('KnowledgeVectorStoreService', () => {
   it('fails the open and closes the driver when the empty-index diagnostic cannot read the base items', async () => {
     const service = new KnowledgeVectorStoreService()
     const base = createBase()
-    let openedDriver: { close: ReturnType<typeof vi.fn> } | undefined
+    let openedDriver: { close: ReturnType<typeof vi.fn<(...args: any[]) => any>> } | undefined
     openDriverMock.mockImplementationOnce(() => {
       openedDriver = { kind: 'driver', close: vi.fn().mockResolvedValue(undefined) } as never
       return openedDriver

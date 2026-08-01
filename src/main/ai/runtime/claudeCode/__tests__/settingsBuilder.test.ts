@@ -105,11 +105,15 @@ vi.mock('@main/ai/agents/builtin/BuiltinAgentProvisioner', () => ({
 }))
 
 vi.mock('@main/ai/agents/prompt', () => ({
-  PromptBuilder: vi.fn(() => ({ buildSystemPrompt: mocks.buildPrompt }))
+  PromptBuilder: vi.fn(function PromptBuilderMock() {
+    return { buildSystemPrompt: mocks.buildPrompt }
+  })
 }))
 
 vi.mock('@main/ai/mcp/servers/assistant', () => ({
-  default: vi.fn(() => ({ mcpServer: {} }))
+  default: vi.fn(function AssistantMcpServerMock() {
+    return { mcpServer: {} }
+  })
 }))
 
 vi.mock('@main/ai/runtime/claudeCode/createSdkMcpServerInstance', () => ({
@@ -1440,7 +1444,7 @@ describe('buildClaudeCodeSessionSettings', () => {
     it('reuses one snapshot per session so a warm-hit refresh is seen by the prewarm-baked hook (Bug A)', async () => {
       // Each create returns a fresh stateful snapshot; `update()` simulates the connect-time policy
       // disabling Bash. With the fix, both builds share one snapshot and the prewarm hook sees it.
-      const created: Array<{ update: ReturnType<typeof vi.fn> }> = []
+      const created: Array<{ update: ReturnType<typeof vi.fn<(...args: any[]) => any>> }> = []
       mocks.createToolPolicySnapshot.mockImplementation(async () => {
         const disabled = new Set<string>()
         const snap = {

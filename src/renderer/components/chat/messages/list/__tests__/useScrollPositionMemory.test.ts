@@ -100,12 +100,12 @@ describe('useScrollPositionMemory', () => {
 
   let scroller: { scrollTop: number; scrollHeight: number; clientHeight: number }
   let handle: {
-    findItemIndex: ReturnType<typeof vi.fn>
-    getItemOffset: ReturnType<typeof vi.fn>
-    scrollToIndex: ReturnType<typeof vi.fn>
+    findItemIndex: ReturnType<typeof vi.fn<(...args: any[]) => any>>
+    getItemOffset: ReturnType<typeof vi.fn<(...args: any[]) => any>>
+    scrollToIndex: ReturnType<typeof vi.fn<(...args: any[]) => any>>
   }
   let atBottom: boolean
-  let notifyProgrammaticStick: ReturnType<typeof vi.fn>
+  let notifyProgrammaticStick: ReturnType<typeof vi.fn<(...args: any[]) => any>>
   let keysByIndex: Record<number, string>
 
   const buildInputs = (overrides: Partial<ScrollPositionMemoryInputs> = {}): ScrollPositionMemoryInputs => ({
