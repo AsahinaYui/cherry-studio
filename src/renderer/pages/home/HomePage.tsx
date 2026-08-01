@@ -362,7 +362,7 @@ const HomePage: FC = () => {
     })
 
     return unsubscribe
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- `useEffectEvent` reads the latest topic without resubscribing.
+    // oxlint-disable-next-line react/exhaustive-deps -- `useEffectEvent` reads the latest topic without resubscribing.
   }, [currentTabId])
 
   useEffect(() => {
@@ -727,7 +727,7 @@ const HomePage: FC = () => {
       unsubscribe()
       unsubscribeMessage()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- `useEffectEvent` reads latest tab/topic state without resubscribing.
+    // oxlint-disable-next-line react/exhaustive-deps -- `useEffectEvent` reads latest tab/topic state without resubscribing.
   }, [currentTabId])
 
   const handleLocateMessageHandled = useCallback(() => {

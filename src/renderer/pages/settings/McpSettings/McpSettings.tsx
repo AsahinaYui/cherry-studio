@@ -234,7 +234,7 @@ const McpSettings: React.FC = () => {
     if (activeTab === 'logs') {
       void fetchServerLogs()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react/exhaustive-deps
   }, [activeTab, server?.id])
 
   useEffect(() => {
@@ -244,7 +244,7 @@ const McpSettings: React.FC = () => {
       void fetchResources()
       void fetchServerVersion()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react/exhaustive-deps
   }, [server?.id, server?.isActive])
 
   useEffect(() => {
