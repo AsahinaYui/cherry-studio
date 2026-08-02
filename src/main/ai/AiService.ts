@@ -880,7 +880,7 @@ export class AiService extends BaseService {
     const {
       sdkConfig,
       credentialReceipt,
-      options = {},
+      options,
       provider,
       model,
       assistant

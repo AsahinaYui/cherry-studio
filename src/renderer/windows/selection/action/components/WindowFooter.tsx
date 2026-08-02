@@ -20,8 +20,8 @@ interface FooterProps {
 const WindowFooter: FC<FooterProps> = ({
   content = '',
   loading = false,
-  onPause = undefined,
-  onRegenerate = undefined
+  onPause,
+  onRegenerate
 }) => {
   const { t } = useTranslation()
 

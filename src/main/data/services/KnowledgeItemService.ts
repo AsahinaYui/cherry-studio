@@ -398,7 +398,7 @@ export class KnowledgeItemService {
     baseId: string,
     rootIds: string[],
     status: 'deleting' | 'failed',
-    update: FailedKnowledgeItemStatusUpdate | undefined = undefined
+    update?: FailedKnowledgeItemStatusUpdate | undefined
   ): string[] {
     const error = status === 'failed' ? update?.error.trim() : null
 
@@ -540,7 +540,7 @@ export class KnowledgeItemService {
   updateStatus(
     id: string,
     status: KnowledgeItemStatus,
-    update: FailedKnowledgeItemStatusUpdate | undefined = undefined
+    update?: FailedKnowledgeItemStatusUpdate | undefined
   ): KnowledgeItem {
     // Per-type status legality is enforced by the DB CHECK constraint.
     const error = status === 'failed' ? update?.error.trim() : null
