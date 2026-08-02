@@ -62,7 +62,7 @@ function isAskUserQuestionApprovalResponse(input: MessageToolApprovalInput): inp
   return (
     input.approved === true &&
     !!input.updatedInput &&
-    isAskUserQuestionToolName(getToolNameFromPart(input.match.part as AskUserQuestionApprovalPart)) &&
+    isAskUserQuestionToolName(getToolNameFromPart(input.match.part)) &&
     !!parseAskUserQuestionToolInput(input.updatedInput)?.answers
   )
 }
@@ -208,7 +208,7 @@ export function useAgentChatRuntimeState({
   const basePartsMap = useMemo<Record<string, CherryMessagePart[]>>(() => {
     const next: Record<string, CherryMessagePart[]> = {}
     for (const message of uiMessages) {
-      next[message.id] = (message.parts ?? []) as CherryMessagePart[]
+      next[message.id] = message.parts ?? []
     }
     return next
   }, [uiMessages])

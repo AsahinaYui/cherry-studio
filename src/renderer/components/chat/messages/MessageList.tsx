@@ -694,7 +694,7 @@ const MessageList = () => {
       {meta.selectionLayer && (
         <SelectionBox
           isMultiSelectMode={isMultiSelectMode}
-          scrollContainerRef={scrollContainerRef as React.RefObject<HTMLDivElement>}
+          scrollContainerRef={scrollContainerRef}
           messageElements={messageElements.current}
           handleSelectMessage={(messageId, selected) => actions.selectMessage?.(messageId, selected)}
         />

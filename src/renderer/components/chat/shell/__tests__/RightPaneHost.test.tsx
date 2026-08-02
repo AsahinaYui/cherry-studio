@@ -687,7 +687,7 @@ describe('RightPaneHost', () => {
       window.requestAnimationFrame = vi.fn((callback: FrameRequestCallback) => {
         rafCallbacks.push(callback)
         return nextRafId++
-      }) as typeof window.requestAnimationFrame
+      })
       window.cancelAnimationFrame = vi.fn()
     })
 

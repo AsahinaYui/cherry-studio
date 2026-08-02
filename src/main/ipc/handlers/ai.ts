@@ -1,3 +1,4 @@
+// oxlint-disable typescript/no-unnecessary-type-assertion -- tsgolint 7 false-positives vs tsc 7 (see #17746)
 import { agentSessionMessageService } from '@data/services/AgentSessionMessageService'
 import { messageService } from '@data/services/MessageService'
 import { isToolUIPart } from 'ai'

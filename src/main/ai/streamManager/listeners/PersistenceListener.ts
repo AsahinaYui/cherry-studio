@@ -94,7 +94,7 @@ export class PersistenceListener implements StreamListener {
     const finalMessageForPersistence = finalMessage
       ? {
           ...finalMessage,
-          parts: finalizeInterruptedParts(dropEmptyContentParts(finalMessage.parts as CherryMessagePart[]), status)
+          parts: finalizeInterruptedParts(dropEmptyContentParts(finalMessage.parts), status)
         }
       : finalMessage
 
@@ -155,5 +155,5 @@ function mergeErrorIntoMessage(base: CherryUIMessage | undefined, error: Seriali
     role: 'assistant',
     parts: [...baseParts, errorPart],
     ...(base?.metadata ? { metadata: base.metadata } : {})
-  } as CherryUIMessage
+  }
 }

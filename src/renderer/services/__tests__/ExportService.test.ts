@@ -628,7 +628,7 @@ describe('ExportService', () => {
         id: 't_plain_formatted',
         name: 'Formatted Plain Topic',
         assistantId: 'asst_test_formatted',
-        messages: [userMsg, assistantMsg] as any
+        messages: [userMsg, assistantMsg]
       })
       // Mock getTopicMessages to return the expected messages
       ;(getTopicMessages as any).mockResolvedValue([userMsg, assistantMsg])
@@ -661,7 +661,7 @@ describe('ExportService', () => {
         id: 't_multi_plain_formatted',
         name: 'Multi Plain Formatted',
         assistantId: 'asst_test_multi_formatted',
-        messages: [msg1, msg2] as any
+        messages: [msg1, msg2]
       })
       // Mock getTopicMessages to return the expected messages
       ;(getTopicMessages as any).mockResolvedValue([msg1, msg2])
@@ -754,7 +754,7 @@ describe('ExportService', () => {
         id: 'topic_empty_content',
         name: 'Topic with empty content',
         assistantId: 'asst_test',
-        messages: [msgWithEmpty] as any
+        messages: [msgWithEmpty]
       })
       // Mock getTopicMessages to return the expected messages
       ;(getTopicMessages as any).mockResolvedValue([msgWithEmpty])
@@ -772,7 +772,7 @@ describe('ExportService', () => {
         id: 'topic_special_chars',
         name: 'Topic with "quotes" & symbols',
         assistantId: 'asst_test',
-        messages: [msgWithSpecial] as any
+        messages: [msgWithSpecial]
       })
       // Mock getTopicMessages to return the expected messages
       ;(getTopicMessages as any).mockResolvedValue([msgWithSpecial])
@@ -795,7 +795,7 @@ describe('ExportService', () => {
         id: 'topic1_plain',
         name: '# Topic One',
         assistantId: 'asst_test',
-        messages: [msg1, msg2] as any
+        messages: [msg1, msg2]
       })
       // Mock getTopicMessages to return the expected messages
       ;(getTopicMessages as any).mockResolvedValue([msg1, msg2])

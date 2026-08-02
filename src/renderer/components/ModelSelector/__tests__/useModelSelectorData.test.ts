@@ -51,7 +51,7 @@ function makeModel(id: string, providerId: string, overrides: Partial<Model> = {
     isEnabled: true,
     isHidden: false,
     ...overrides
-  } as Model
+  }
 }
 
 function wireDeps({

@@ -19,7 +19,7 @@ const provider = (providerId: string) => {
 const endpointsOf = (providerId: string, modelId: string): string[] | undefined => {
   const entry = provider(providerId).overrides?.find((o) => o.modelId === modelId)
   if (!entry) throw new Error(`Missing override: ${providerId}/${modelId}`)
-  return entry.endpointTypes as string[] | undefined
+  return entry.endpointTypes
 }
 
 describe('dashscope (Bailian) endpoint matrix', () => {

@@ -104,7 +104,7 @@ async function readAll(stream: ReadableStream<Uint8Array> | null): Promise<strin
 
 async function startStreaming(signal?: AbortSignal) {
   const response = processMessage({
-    params: { model: 'openai:gpt-4', stream: true, messages: [] } as any,
+    params: { model: 'openai:gpt-4', stream: true, messages: [] },
     inputFormat: 'openai',
     outputFormat: 'openai',
     signal
@@ -126,7 +126,7 @@ describe('processMessage (streaming)', () => {
     mockResolveAgentSessionUsage.mockReturnValue(usageContext)
     const requestHeaders = new Headers({ 'x-cherry-internal-usage-token': 'proof' })
     const response = processMessage({
-      params: { model: 'openai:gpt-4', stream: true, messages: [] } as any,
+      params: { model: 'openai:gpt-4', stream: true, messages: [] },
       inputFormat: 'openai',
       outputFormat: 'openai',
       requestHeaders
@@ -193,7 +193,7 @@ describe('processMessage (streaming)', () => {
     controller.abort()
 
     const res = await processMessage({
-      params: { model: 'openai:gpt-4', stream: true, messages: [] } as any,
+      params: { model: 'openai:gpt-4', stream: true, messages: [] },
       inputFormat: 'openai',
       outputFormat: 'openai',
       signal: controller.signal
@@ -224,7 +224,7 @@ describe('processMessage (streaming)', () => {
 
   it('returns JSON (not a stream) for non-streaming requests', async () => {
     const resPromise = processMessage({
-      params: { model: 'openai:gpt-4', messages: [] } as any,
+      params: { model: 'openai:gpt-4', messages: [] },
       inputFormat: 'openai',
       outputFormat: 'openai'
     })
@@ -298,7 +298,7 @@ describe('processMessage (error & pause)', () => {
 
   it('non-streaming: a terminal error rejects (propagates to the route → onError envelope)', async () => {
     const resPromise = processMessage({
-      params: { model: 'openai:gpt-4', messages: [] } as any,
+      params: { model: 'openai:gpt-4', messages: [] },
       inputFormat: 'openai',
       outputFormat: 'openai'
     })
@@ -314,7 +314,7 @@ describe('processMessage (error & pause)', () => {
 
   it('non-streaming: an idle-timeout pause rejects with a 504 (truncation is not a 200)', async () => {
     const resPromise = processMessage({
-      params: { model: 'openai:gpt-4', messages: [] } as any,
+      params: { model: 'openai:gpt-4', messages: [] },
       inputFormat: 'openai',
       outputFormat: 'openai'
     })
@@ -328,7 +328,7 @@ describe('processMessage (error & pause)', () => {
   it('non-streaming: client disconnect resolves without a 504 (response is moot)', async () => {
     const controller = new AbortController()
     const resPromise = processMessage({
-      params: { model: 'openai:gpt-4', messages: [] } as any,
+      params: { model: 'openai:gpt-4', messages: [] },
       inputFormat: 'openai',
       outputFormat: 'openai',
       signal: controller.signal

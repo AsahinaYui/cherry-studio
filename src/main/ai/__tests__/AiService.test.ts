@@ -321,7 +321,7 @@ describe('AiService', () => {
         modelId: 'test-model',
         pricing: { input: { perMillionTokens: null }, output: { perMillionTokens: null }, perImage: { price: 0.05 } }
       }
-    } as never)
+    })
 
     mockGenerateImage.mockResolvedValue({
       images: [{ base64: 'abc123', mediaType: 'image/png' }, { nonsense: true }],
@@ -421,7 +421,7 @@ describe('AiService', () => {
         providerSettings: {},
         modelId: 'test-model'
       }
-    } as never)
+    })
 
     mockGenerateImage.mockResolvedValue({ images: [] })
     mockApplicationGet.mockImplementation((name: string) =>
@@ -451,7 +451,7 @@ describe('AiService', () => {
     const service = createService()
     vi.spyOn(service as unknown as AiServicePrivate, 'buildAgentParamsFor').mockResolvedValue({
       sdkConfig: { providerId: 'silicon', providerSettings: {}, modelId: 'Kwai-Kolors/Kolors' }
-    } as never)
+    })
 
     mockGenerateImage.mockResolvedValue({ images: [] })
     mockApplicationGet.mockImplementation((name: string) =>
@@ -494,7 +494,7 @@ describe('AiService', () => {
       vi.spyOn(service as unknown as AiServicePrivate, 'buildAgentParamsFor').mockResolvedValue({
         sdkConfig: { providerId: 'test-provider', providerSettings: {}, modelId: 'test-model' },
         model: { id: 'test-provider::test-model', providerId: 'test-provider' }
-      } as never)
+      })
       mockGenerateImage.mockResolvedValue({ images: [{ base64: 'abc123', mediaType: 'image/png' }] })
       const fileEntry = { id: 'file-1', origin: 'internal', ext: 'png', name: 'img', size: 3, createdAt: 0 }
       mockApplicationGet.mockImplementation((name: string) =>
@@ -534,7 +534,7 @@ describe('AiService', () => {
         sdkConfig: { providerId: 'test-provider', providerSettings: {}, modelId: 'test-model' },
         model: { id: 'test-provider::test-model', providerId: 'test-provider' },
         assistant: { id: 'assistant-1', name: 'Image Assistant', emoji: '🎨' }
-      } as never)
+      })
       mockGenerateImage.mockResolvedValue({
         images: [
           { base64: 'first', mediaType: 'image/png' },
@@ -595,7 +595,7 @@ describe('AiService', () => {
           name: 'Test Embedding Model'
         },
         assistant: { id: 'assistant-1', name: 'Embedding Assistant', emoji: '📚' }
-      } as never)
+      })
       mockEmbedMany.mockResolvedValue({ embeddings: [[0.1, 0.2]], usage: { tokens: 42 } })
     }
 
@@ -1036,7 +1036,7 @@ describe('AiService tool approval', () => {
         providerId: 'test-provider',
         name: 'Test Reranker'
       }
-    } as never)
+    })
 
     mockRerank.mockResolvedValue({
       ranking: [

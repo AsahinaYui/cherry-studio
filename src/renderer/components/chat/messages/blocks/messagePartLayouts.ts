@@ -56,7 +56,7 @@ const SUBSTANTIVE_ANSWER_PART_TYPES = new Set([
 const ASSOCIATED_RESULT_PART_TYPES = new Set(['data-error', 'file', 'data-video'])
 
 export function isHiddenPart(part: CherryMessagePart): boolean {
-  return HIDDEN_PART_TYPES.has(part.type as string)
+  return HIDDEN_PART_TYPES.has(part.type)
 }
 
 function isIgnorableEmptyContentPart(part: CherryMessagePart): boolean {
@@ -239,7 +239,7 @@ export function isSubstantiveAnswerPart(part: CherryMessagePart): boolean {
 }
 
 function isAssociatedResultPart(part: CherryMessagePart): boolean {
-  return ASSOCIATED_RESULT_PART_TYPES.has(part.type as string)
+  return ASSOCIATED_RESULT_PART_TYPES.has(part.type)
 }
 
 export function isReasoningMessagePart(part: CherryMessagePart): boolean {

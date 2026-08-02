@@ -77,7 +77,7 @@ const {
       }
     ]
   },
-  mcpStatusState: { current: {} as Record<string, { state: string; lastCheckedAt: number }> },
+  mcpStatusState: { current: {} },
   openSettingsTabMock: vi.fn(),
   settingsNavigateMock: vi.fn(),
   skillCatalogPickerMock: vi.fn(),

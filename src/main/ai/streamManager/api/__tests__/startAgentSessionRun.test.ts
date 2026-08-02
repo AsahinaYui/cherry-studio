@@ -70,7 +70,7 @@ describe('startAgentSessionRun — per-topic dispatch serialization (B2 agent-se
     sendSpy = vi.spyOn(manager, 'send').mockImplementation((input: { topicId: string }) => {
       events.push(`send:${input.topicId}`)
       return { mode: 'started', executionIds: [] }
-    }) as unknown as ReturnType<typeof vi.spyOn>
+    })
   })
 
   afterEach(() => {

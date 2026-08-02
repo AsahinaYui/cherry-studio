@@ -236,15 +236,14 @@ import {
   requestTopicImageAction
 } from '../topicImageActionBus'
 
-const createTopic = (id: string): Topic =>
-  ({
-    id,
-    assistantId: 'assistant-1',
-    name: `Topic ${id}`,
-    createdAt: '2026-01-01T00:00:00.000Z',
-    updatedAt: '2026-01-01T00:00:00.000Z',
-    messages: []
-  }) as Topic
+const createTopic = (id: string): Topic => ({
+  id,
+  assistantId: 'assistant-1',
+  name: `Topic ${id}`,
+  createdAt: '2026-01-01T00:00:00.000Z',
+  updatedAt: '2026-01-01T00:00:00.000Z',
+  messages: []
+})
 
 function MessageListAdapterHarness({
   imageActionConsumer,
@@ -327,7 +326,7 @@ describe('useHomeMessageListProviderValue topic image actions', () => {
   it('injects Home-message diagnosis persistence into the shared error UI', async () => {
     vi.mocked(dataApiService.get).mockResolvedValue({
       data: { parts: [{ type: 'data-error', data: { name: 'ProviderError', message: 'failed' } }] }
-    } as Awaited<ReturnType<typeof dataApiService.get<'/messages/:id'>>>)
+    })
 
     render(<MessageListAdapterHarness topic={createTopic('topic-a')} />)
 
@@ -424,7 +423,7 @@ describe('useHomeMessageListProviderValue topic image actions', () => {
       <MessageListAdapterHarness
         topic={createTopic('topic-a')}
         messages={[historyMessage, liveMessage]}
-        partsByMessageId={{ ...historyPartsByMessageId, 'live-message': liveMessage.parts as CherryMessagePart[] }}
+        partsByMessageId={{ ...historyPartsByMessageId, 'live-message': liveMessage.parts }}
         streamingLayers={streamingLayers}
         onValue={(nextValue) => (value = nextValue)}
       />
@@ -443,7 +442,7 @@ describe('useHomeMessageListProviderValue topic image actions', () => {
         messages={[historyMessage, nextLiveMessage]}
         partsByMessageId={{
           ...historyPartsByMessageId,
-          'live-message': nextLiveMessage.parts as CherryMessagePart[]
+          'live-message': nextLiveMessage.parts
         }}
         streamingLayers={streamingLayers}
         onValue={(nextValue) => (value = nextValue)}

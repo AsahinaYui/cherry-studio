@@ -1,3 +1,4 @@
+// oxlint-disable typescript/no-unnecessary-type-assertion -- tsgolint 7 false-positives vs tsc 7 (see #17746)
 import { cacheService } from '@data/CacheService'
 import { dataApiService } from '@data/DataApiService'
 import { MockUseCacheUtils } from '@test-mocks/renderer/useCache'
@@ -723,7 +724,7 @@ describe('AgentComposer', () => {
         unobserve: instance.unobserve,
         disconnect: instance.disconnect
       } as unknown as ResizeObserver
-    }) as unknown as typeof ResizeObserver
+    })
 
     mocks.draftText = 'hello'
     mocks.draftTokens = undefined
@@ -1806,7 +1807,7 @@ describe('AgentComposer', () => {
             ...pdfSkillToken,
             index: 1,
             textOffset: `summarize ${knowledgePrompt} `.length
-          } as ComposerSerializedToken
+          }
         ]
       })
     })
@@ -2329,7 +2330,7 @@ describe('AgentComposer', () => {
     const { editor, chain, transaction } = buildComposerEditorMock()
 
     await act(async () => {
-      item.command?.({ editor, range: { from: 0, to: 0 }, item, query: '' } as any)
+      item.command?.({ editor, range: { from: 0, to: 0 }, item, query: '' })
     })
 
     // The chip is bound to this draft synchronously, still empty of context...
@@ -2392,7 +2393,7 @@ describe('AgentComposer', () => {
     const { editor, transaction } = buildComposerEditorMock()
 
     await act(async () => {
-      item.command?.({ editor, range: { from: 0, to: 0 }, item, query: '' } as any)
+      item.command?.({ editor, range: { from: 0, to: 0 }, item, query: '' })
     })
 
     expect(transaction.delete).toHaveBeenCalledWith(0, 1)
@@ -3178,7 +3179,7 @@ describe('AgentComposer', () => {
         payload: workspaceFile,
         index: 0,
         textOffset: mocks.draftText.length
-      } as ComposerSerializedToken
+      }
     ]
     mocks.createInternalEntry.mockRejectedValueOnce(new Error('workspace resources should not be internalized'))
 
@@ -3248,7 +3249,7 @@ describe('AgentComposer', () => {
         payload: workspaceFile,
         index: 0,
         textOffset: mocks.draftText.length
-      } as ComposerSerializedToken
+      }
     ]
     mocks.ipcApiRequest.mockReturnValueOnce(metadata.promise)
 
@@ -3314,17 +3315,14 @@ describe('AgentComposer', () => {
       path: '/workspace/docs/beta.md'
     } as FileMetadata
     mocks.files = [workspaceFileA, localFile, workspaceFileB]
-    mocks.draftTokens = [workspaceFileA, localFile, workspaceFileB].map(
-      (attachedFile, index) =>
-        ({
-          id: `file:${attachedFile.fileTokenSourceId}`,
-          kind: 'file',
-          label: attachedFile.name,
-          payload: attachedFile,
-          index,
-          textOffset: mocks.draftText.length
-        }) as ComposerSerializedToken
-    )
+    mocks.draftTokens = [workspaceFileA, localFile, workspaceFileB].map((attachedFile, index) => ({
+      id: `file:${attachedFile.fileTokenSourceId}`,
+      kind: 'file',
+      label: attachedFile.name,
+      payload: attachedFile,
+      index,
+      textOffset: mocks.draftText.length
+    }))
 
     render(
       <AgentComposer
@@ -3385,7 +3383,7 @@ describe('AgentComposer', () => {
         payload: workspaceFile,
         index: 0,
         textOffset: mocks.draftText.length
-      } as ComposerSerializedToken
+      }
     ]
     mocks.createInternalEntry.mockRejectedValueOnce(new Error('workspace resources should not be internalized'))
 
@@ -3452,7 +3450,7 @@ describe('AgentComposer', () => {
         payload: workspaceFile,
         index: 0,
         textOffset: mocks.draftText.length
-      } as ComposerSerializedToken
+      }
     ]
     mocks.ipcApiRequest.mockResolvedValue({})
 
@@ -3559,7 +3557,7 @@ describe('AgentComposer', () => {
         payload: file,
         index: 0,
         textOffset: mocks.draftText.length
-      } as ComposerSerializedToken
+      }
     ]
 
     render(

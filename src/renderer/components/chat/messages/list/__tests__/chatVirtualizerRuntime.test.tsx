@@ -176,7 +176,7 @@ function installResizeObserverMock(callbacks: ResizeObserverCallback[]): () => v
     }
   }
 
-  globalThis.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver
+  globalThis.ResizeObserver = ResizeObserverMock
   return () => {
     globalThis.ResizeObserver = originalResizeObserver
   }
@@ -188,14 +188,14 @@ function installQueuedAnimationFrame(): { restore(): void; tick(frames?: number)
   let rafId = 0
   let rafQueue = new Map<number, () => void>()
 
-  globalThis.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+  globalThis.requestAnimationFrame = (callback: FrameRequestCallback) => {
     const id = ++rafId
     rafQueue.set(id, () => callback(0))
     return id
-  }) as typeof requestAnimationFrame
-  globalThis.cancelAnimationFrame = ((id: number) => {
+  }
+  globalThis.cancelAnimationFrame = (id: number) => {
     rafQueue.delete(id)
-  }) as typeof cancelAnimationFrame
+  }
 
   return {
     restore() {
@@ -327,7 +327,7 @@ describe('useChatVirtualizerRuntime', () => {
       }
     }
 
-    globalThis.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver
+    globalThis.ResizeObserver = ResizeObserverMock
 
     try {
       const items = ['message-a']
@@ -354,7 +354,7 @@ describe('useChatVirtualizerRuntime', () => {
       unobserve = vi.fn()
     }
 
-    globalThis.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver
+    globalThis.ResizeObserver = ResizeObserverMock
 
     try {
       let runtime: ChatVirtualizerRuntime<string> | undefined
@@ -536,7 +536,7 @@ describe('useChatVirtualizerRuntime', () => {
       }
     }
 
-    globalThis.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver
+    globalThis.ResizeObserver = ResizeObserverMock
 
     try {
       let runtime: ChatVirtualizerRuntime<string> | undefined

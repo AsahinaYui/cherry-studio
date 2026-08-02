@@ -14,7 +14,7 @@ function createModel(overrides: Partial<Model> = {}): Model {
     isEnabled: true,
     isHidden: false,
     ...overrides
-  } as Model
+  }
 }
 
 describe('isSelectableAssistantModel', () => {

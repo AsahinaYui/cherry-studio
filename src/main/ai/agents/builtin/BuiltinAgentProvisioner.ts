@@ -86,7 +86,7 @@ export function loadBuiltinAgentDefinition(builtinRole: string): BuiltinAgentCon
       name: agentConfig.name,
       instructions: resolveLocalizedField(agentConfig.instructions),
       configuration: agentConfig.configuration
-    } as BuiltinAgentConfig
+    }
   } catch (error) {
     logger.error('Failed to load builtin agent definition', {
       builtinRole,
