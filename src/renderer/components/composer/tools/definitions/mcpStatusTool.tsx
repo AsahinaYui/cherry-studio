@@ -277,7 +277,8 @@ export function createMcpStatusLauncher(
         parentPanel,
         queryAnchor,
         triggerInfo: triggerInfo ?? { type: 'button' },
-        readOnly: !editable
+        readOnly: !editable,
+        trackInputQuery: true
       })
     }
   }

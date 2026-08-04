@@ -63,7 +63,8 @@ export function getQuickPanelHeights({
   const scrollablePageSize = Math.max(0, pageSize - fixedItemCount)
 
   if (!isVisible) return { panelMaxHeight: 0, listHeight: 0 }
-  if (collapsed) return { panelMaxHeight: defaultChromeHeight + fixedItemsHeight, listHeight: 0 }
+  // Collapsed panels render "No results" alone — fixed bottom rows are hidden, so they claim no height.
+  if (collapsed) return { panelMaxHeight: defaultChromeHeight, listHeight: 0 }
 
   const listContentHeight = Math.min(scrollablePageSize, itemCount) * QUICK_PANEL_ITEM_HEIGHT
   const contentHeight = effectiveChromeHeight + listContentHeight

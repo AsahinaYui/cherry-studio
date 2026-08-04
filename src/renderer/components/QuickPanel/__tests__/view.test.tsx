@@ -443,6 +443,186 @@ describe('QuickPanelView', () => {
     expect(screen.queryByText('Attachment')).not.toBeInTheDocument()
   })
 
+  describe('button-triggered tracked panels follow typing', () => {
+    const renderTypingPanel = (onClose = vi.fn()) => {
+      const listeners = new Set<Parameters<NonNullable<QuickPanelInputAdapter['subscribeInput']>>[0]>()
+      let text = ''
+      let caret = 0
+      const inputAdapter: QuickPanelInputAdapter = {
+        getText: () => text,
+        getCursorOffset: () => caret,
+        insertText: vi.fn(),
+        deleteTriggerRange: vi.fn(),
+        focus: vi.fn(),
+        subscribeInput: (listener) => {
+          listeners.add(listener)
+          return () => listeners.delete(listener)
+        }
+      }
+
+      const type = (
+        nextText: string,
+        event?: {
+          isComposing?: boolean
+          cause?: 'user-input' | 'state-sync'
+          caretOffset?: number
+          textAfterCaret?: string
+        }
+      ) => {
+        text = `${nextText}${event?.textAfterCaret ?? ''}`
+        caret = event?.caretOffset ?? nextText.length
+        act(() => listeners.forEach((listener) => listener(event)))
+      }
+
+      render(
+        <QuickPanelProvider>
+          <PanelHarness
+            captureDispatch={vi.fn()}
+            inputAdapter={inputAdapter}
+            items={[
+              { id: 'agent-skill', label: 'Agent skill', icon: 'sparkles' },
+              { id: 'attachment', label: 'Attachment', icon: 'paperclip' }
+            ]}
+            queryAnchor={0}
+            triggerInfo={{ type: 'button', position: 0 }}
+            trackInputQuery
+            onClose={onClose}
+          />
+        </QuickPanelProvider>
+      )
+
+      return { type }
+    }
+
+    it('filters as the user types', async () => {
+      const { type } = renderTypingPanel()
+      await screen.findByText('Agent skill')
+
+      type('skill')
+
+      expect(screen.getByText('Agent skill')).toBeInTheDocument()
+      expect(screen.queryByText('Attachment')).not.toBeInTheDocument()
+    })
+
+    it('closes once a whitespace query stops matching anything', async () => {
+      const onClose = vi.fn()
+      const { type } = renderTypingPanel(onClose)
+      await screen.findByText('Agent skill')
+
+      type('skill zzz')
+
+      expect(onClose).toHaveBeenCalledWith(expect.objectContaining({ action: 'input_query_terminated' }))
+    })
+
+    it('keeps a whitespace query open while it still matches a multi-word name', async () => {
+      const onClose = vi.fn()
+      const { type } = renderTypingPanel(onClose)
+      await screen.findByText('Agent skill')
+
+      // "Agent skill" is two words: the space belongs to the name being spelled out, not to a message.
+      type('agent s')
+
+      expect(onClose).not.toHaveBeenCalled()
+      expect(screen.getByText('Agent skill')).toBeInTheDocument()
+      expect(screen.queryByText('Attachment')).not.toBeInTheDocument()
+    })
+
+    it('stays open when the caret sits mid-sentence, so a reference can be inserted there', async () => {
+      const onClose = vi.fn()
+      const { type } = renderTypingPanel(onClose)
+      await screen.findByText('Agent skill')
+
+      // Text continues after the caret — a button panel summoned mid-sentence must survive it.
+      type('skill', { caretOffset: 5, textAfterCaret: ' and more text' })
+
+      expect(onClose).not.toHaveBeenCalled()
+      expect(screen.getByText('Agent skill')).toBeInTheDocument()
+    })
+
+    it('still filters while an IME composition is in flight', async () => {
+      const onClose = vi.fn()
+      const { type } = renderTypingPanel(onClose)
+      await screen.findByText('Agent skill')
+
+      // Without this the list would not move until the composition commits — and the commit itself
+      // produces no further notification, so a Chinese query would never filter at all.
+      type('skill', { isComposing: true })
+
+      expect(screen.getByText('Agent skill')).toBeInTheDocument()
+      expect(screen.queryByText('Attachment')).not.toBeInTheDocument()
+      expect(onClose).not.toHaveBeenCalled()
+    })
+
+    it('never closes on whitespace while an IME composition is in flight', async () => {
+      const onClose = vi.fn()
+      const { type } = renderTypingPanel(onClose)
+      await screen.findByText('Agent skill')
+
+      // Many IMEs commit with a space; reading it as "user moved on" would close the panel mid-word.
+      type('skill ', { isComposing: true })
+
+      expect(onClose).not.toHaveBeenCalled()
+    })
+
+    it('re-anchors on programmatic token syncs so the inserted separator does not end the query', async () => {
+      const onClose = vi.fn()
+      const { type } = renderTypingPanel(onClose)
+      await screen.findByText('Agent skill')
+
+      // A multi-select re-anchors before its token lands; the token arrives with a separator space.
+      // Without re-anchoring here, the next keystroke would measure the query as " a" and close.
+      type(' ', { cause: 'state-sync' })
+      type(' skill')
+
+      expect(onClose).not.toHaveBeenCalled()
+      expect(screen.getByText('Agent skill')).toBeInTheDocument()
+      expect(screen.queryByText('Attachment')).not.toBeInTheDocument()
+    })
+
+    it('ignores programmatic token syncs', async () => {
+      const onClose = vi.fn()
+      const { type } = renderTypingPanel(onClose)
+      await screen.findByText('Agent skill')
+
+      type('inserted token text ', { cause: 'state-sync' })
+
+      expect(onClose).not.toHaveBeenCalled()
+      expect(screen.getByText('Agent skill')).toBeInTheDocument()
+      expect(screen.getByText('Attachment')).toBeInTheDocument()
+    })
+  })
+
+  it('keeps a submenu open when it inherits an input trigger the parent already consumed', async () => {
+    const onClose = vi.fn()
+    // A submenu opened from the "/" root panel inherits its parent's input triggerInfo, but the
+    // parent deleted the "/" on the way in — the trigger-removed rule must not fire on open.
+    const inputAdapter: QuickPanelInputAdapter = {
+      getText: () => '',
+      getCursorOffset: () => 0,
+      insertText: vi.fn(),
+      deleteTriggerRange: vi.fn(),
+      focus: vi.fn()
+    }
+
+    render(
+      <QuickPanelProvider>
+        <PanelHarness
+          captureDispatch={vi.fn()}
+          inputAdapter={inputAdapter}
+          items={[{ id: 'server', label: 'MCP server', icon: 'plug' }]}
+          queryAnchor={0}
+          triggerInfo={{ type: 'input', position: 0, originalText: '/' }}
+          trackInputQuery
+          onClose={onClose}
+        />
+      </QuickPanelProvider>
+    )
+
+    expect(await screen.findByText('MCP server')).toBeInTheDocument()
+    expect(screen.getByTestId('quick-panel')).toHaveClass('visible')
+    expect(onClose).not.toHaveBeenCalled()
+  })
+
   it('closes with Escape even when the key event does not come from the input adapter', async () => {
     const captureDispatch = vi.fn()
     const onClose = vi.fn()
@@ -1167,7 +1347,7 @@ describe('QuickPanelView', () => {
     expect(action).not.toHaveBeenCalled()
   })
 
-  it('keeps a bottom-fixed action visible when filtering has no results', async () => {
+  it('hides bottom-fixed actions when filtering has no results', async () => {
     const action = vi.fn()
     const inputAdapter: QuickPanelInputAdapter = {
       deleteTriggerRange: vi.fn(),
@@ -1189,10 +1369,10 @@ describe('QuickPanelView', () => {
 
     await screen.findByText('No results')
     expect(screen.queryByTestId('quick-panel-virtual-list')).not.toBeInTheDocument()
-    expect(within(screen.getByTestId('quick-panel-fixed-bottom')).getByText('Customize toolbar')).toBeInTheDocument()
-
-    fireEvent.click(screen.getByText('Customize toolbar'))
-    expect(action).toHaveBeenCalledTimes(1)
+    // A lingering footer row would be clickable by mouse yet inert to Enter, which is swallowed while collapsed.
+    expect(screen.queryByTestId('quick-panel-fixed-bottom')).not.toBeInTheDocument()
+    expect(screen.queryByText('Customize toolbar')).not.toBeInTheDocument()
+    expect(action).not.toHaveBeenCalled()
   })
 
   it('keeps the exit layout stable when closing', async () => {

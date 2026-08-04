@@ -143,7 +143,7 @@ describe('getQuickPanelHeights', () => {
       expect(listHeight).toBe(0)
     })
 
-    it('keeps the bottom-fixed row visible when collapsed', () => {
+    it('drops the bottom-fixed row height when collapsed, since the row is hidden with no results', () => {
       const { panelMaxHeight, listHeight } = getQuickPanelHeights({
         ...base,
         fill: true,
@@ -152,7 +152,7 @@ describe('getQuickPanelHeights', () => {
         availableHeight: 400
       })
 
-      expect(panelMaxHeight).toBe(DEFAULT_CHROME + ITEM)
+      expect(panelMaxHeight).toBe(DEFAULT_CHROME)
       expect(listHeight).toBe(0)
     })
   })
