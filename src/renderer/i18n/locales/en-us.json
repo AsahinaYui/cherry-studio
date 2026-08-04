@@ -6002,6 +6002,23 @@
           "knowledge_ready": "{{count}} knowledge search index(es) are included and can be used immediately after restore.",
           "knowledge_rebuild": "{{count}} knowledge search index(es) need to be rebuilt after restore."
         },
+        "progress": {
+          "cancelling": "Stopping…",
+          "exporting": "Creating backup",
+          "preparing": "Checking backup",
+          "stage": {
+            "admitting": "Reading and verifying archive",
+            "capturing-resources": "Collecting files",
+            "materializing-db": "Making the copy portable",
+            "planning": "Working out what to restore",
+            "preparing": "Preparing",
+            "snapshotting-db": "Copying database",
+            "staging": "Staging for restart",
+            "verifying": "Verifying and writing archive"
+          },
+          "starting": "Starting…",
+          "stop": "Stop backup"
+        },
         "restore": {
           "arm_button": "Restore and restart",
           "choose_button": "Choose backup…",
