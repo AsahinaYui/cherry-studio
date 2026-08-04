@@ -224,8 +224,12 @@ const AgentPage = () => {
   const currentTab = useCurrentTab()
   const routeSessionId = routeSearch.sessionId
   const tabMetadataSessionId = currentTab ? getTabInstanceKey(currentTab, 'agents') : undefined
-  const canUseGlobalSessionFallback =
-    !currentTab || (currentTab.id === 'home' && !hasTabInstanceMetadataForApp(currentTab, 'agents'))
+  // Frozen at mount for the same reason as `resumeSessionId` below: `useTabSelfMetadata` stamps this
+  // page's own instance metadata during the first effect flush, so a reactive read would retract the
+  // fallback one render later and race the very queries it gates.
+  const [canUseGlobalSessionFallback] = useState(
+    () => !currentTab || (currentTab.id === 'home' && !hasTabInstanceMetadataForApp(currentTab, 'agents'))
+  )
   const isMessageOnlyView = routeSearch.view === 'message' && !!routeSessionId
   const routeActiveSessionId =
     isMessageOnlyView || isFeedbackIntent ? null : (routeSessionId ?? tabMetadataSessionId ?? null)
@@ -290,19 +294,6 @@ const AgentPage = () => {
       : lastUsedSessionId
   )
   const { session: resumeSession, isLoading: isResumeSessionLoading } = useSession(resumeSessionId)
-  // The global latest query is the final fallback, not a parallel page dependency. An explicit route/tab
-  // target wins outright; a remembered session gets one chance to resolve before we ask for latest.
-  const shouldLoadLatestSession =
-    canUseGlobalSessionFallback &&
-    !isMessageOnlyView &&
-    !isFeedbackIntent &&
-    !routeActiveSessionId &&
-    !isResumeSessionLoading &&
-    !resumeSession
-  const { latestSession, isLoading: isLatestSessionLoading } = useLatestSession({
-    enabled: shouldLoadLatestSession
-  })
-  const isLatestSessionReady = !shouldLoadLatestSession || !isLatestSessionLoading
   const lastRecordedRecentSessionRef = useRef<string | undefined>(undefined)
   const [sessionRevealRequest, setSessionRevealRequest] = useState<ResourceListRevealRequest>()
   const [pendingLocateMessageId, setPendingLocateMessageId] = useState<string | undefined>()
@@ -330,6 +321,34 @@ const AgentPage = () => {
     activeSessionId,
     setActiveSessionId
   })
+  // The tab-metadata entry target no longer exists: its by-id query settled with no row. `last_used_
+  // session_id` is never cleared on delete, so the sidebar can bind a tab to a deleted session — the
+  // tab has no identity left to keep, and stranding it on a blank page is worse than falling through
+  // to global history. Derived, not stored: it must be true in the same render the query settles, or
+  // the first-entry effect below would create a draft before the latest query is even enabled. An
+  // explicit `?sessionId=` deep link keeps its target instead — a bad link is the caller's to fix.
+  const isEntrySessionMissing =
+    !isMessageOnlyView &&
+    !isFeedbackIntent &&
+    !routeSessionId &&
+    !!routeActiveSessionId &&
+    activeSessionId === routeActiveSessionId &&
+    !activeSession &&
+    !isActiveSessionLoading
+  const activeTargetSessionId = isEntrySessionMissing ? null : routeActiveSessionId
+  // The global latest query is the final fallback, not a parallel page dependency. An explicit route/tab
+  // target wins outright; a remembered session gets one chance to resolve before we ask for latest.
+  const shouldLoadLatestSession =
+    (canUseGlobalSessionFallback || isEntrySessionMissing) &&
+    !isMessageOnlyView &&
+    !isFeedbackIntent &&
+    !activeTargetSessionId &&
+    !isResumeSessionLoading &&
+    !resumeSession
+  const { latestSession, isLoading: isLatestSessionLoading } = useLatestSession({
+    enabled: shouldLoadLatestSession
+  })
+  const isLatestSessionReady = !shouldLoadLatestSession || !isLatestSessionLoading
   const lastVisibleSessionRef = useRef<AgentSessionEntity | null>(null)
   const visibleSession = isMessageOnlyView
     ? routeSession
@@ -897,7 +916,7 @@ const AgentPage = () => {
       return
     }
 
-    if (missingAgentSelection || activeSessionId) {
+    if (missingAgentSelection || (activeSessionId && !isEntrySessionMissing)) {
       initialEmptySessionEvaluatedRef.current = true
       return
     }
@@ -947,6 +966,7 @@ const AgentPage = () => {
     agents,
     createDefaultEmptySession,
     isAgentsLoading,
+    isEntrySessionMissing,
     isFeedbackIntent,
     isLatestSessionReady,
     isMessageOnlyView,
